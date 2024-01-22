@@ -12,7 +12,7 @@ class MainMenu:
         print("*" + "-" * (self.border_length - 2) + "*")
 
         print("*".ljust(self.border_length - 1) + "*")
-        print("*    - Done by: Teo Wei Qi (231233) & Lee Hong Yi (2223010)".ljust(self.border_length - 1) + "*")
+        print("*    - Done by: Teo Wei Qi (2201902) & Lee Hong Yi (2223010)".ljust(self.border_length - 1) + "*")
         print("*    - Class DAAA/2B/07".ljust(self.border_length - 1) + "*")
         print("*".ljust(self.border_length - 1) + "*")
         print(self.border)
