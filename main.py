@@ -2,7 +2,7 @@
 # Student ID: p2201902 & p2223010
 # Class: DAAA/FT/2B/07
 
-'''
+"""
 main.py
 
 This is the main script for the Caesar Cipher Encrypted Message Analyzer application. It orchestrates
@@ -15,7 +15,7 @@ including user input and navigation through different functionalities of the app
 Usage:
 - Run this script in a command line interface to start the application.
 - Follow the on-screen prompts to navigate through the various options.
-'''
+"""
 
 
 from application.Menu import MainMenu
@@ -29,12 +29,12 @@ options_list = [
     "Evaluate a single variable",
     "Read assignment statements from file",
     "Sort assignment statements",
-    "Exit"
+    "Exit",
 ]
 
 
 # Initiates MainMenu class using given options.
-mainMenu = MainMenu(options = options_list)
+mainMenu = MainMenu(options=options_list)
 
 # Display welcome screen/banner to user.
 mainMenu.display_welcome_screen()
@@ -44,4 +44,4 @@ while program_running:
     # Prints option menu
     selection = mainMenu.display_main_menu()
     # Runs selected option.
-    mainMenu.program_navigation(selection, exit_int = len(options_list))
+    mainMenu.program_navigation(selection, exit_int=len(options_list))
