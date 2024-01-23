@@ -1,5 +1,5 @@
-# Name: Lee Hong Yi
-# Student ID: p2223010
+# Name: Teo Wei Qi & Lee Hong Yi
+# Student ID: p2201902 & p2223010
 # Class: DAAA/FT/2B/07
 
 '''
@@ -18,7 +18,7 @@ Usage:
 '''
 
 
-from application.menu import MainMenu
+from application.Menu import MainMenu
 
 program_running = True
 

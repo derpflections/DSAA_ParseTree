@@ -1,3 +1,15 @@
+# Name: Teo Wei Qi & Lee Hong Yi
+# Student ID: p2201902 & p2223010
+# Class: DAAA/FT/2B/07
+
+'''
+menu.py
+
+
+'''
+
+from application.BinaryTree import BinaryTree
+    
 class MainMenu:
     def __init__(self, options = None):
         self.border_length = 71
@@ -12,8 +24,8 @@ class MainMenu:
         print("*" + "-" * (self.border_length - 2) + "*")
 
         print("*".ljust(self.border_length - 1) + "*")
-        print("*    - Done by: Teo Wei Qi (231233) & Lee Hong Yi (2223010)".ljust(self.border_length - 1) + "*")
-        print("*    - Class DAAA/2B/07".ljust(self.border_length - 1) + "*")
+        print("*    - Done by: Teo Wei Qi (2201902) & Lee Hong Yi (2223010)".ljust(self.border_length - 1) + "*")
+        print("*    - Class: DAAA/2B/07".ljust(self.border_length - 1) + "*")
         print("*".ljust(self.border_length - 1) + "*")
         print(self.border)
         print("\n\n")
@@ -24,7 +36,6 @@ class MainMenu:
         while invalid_input:
             selection = 0   
             print("\nPlease select your choice (" + ', '.join(f"'{i}'" for i in range(1, len(self.options) + 1)) + "):")
-
             for i in range(len(self.options)):
                 print(f"\t{i + 1}. {self.options[i]}")
             selection = input("Enter choice: ")
@@ -39,11 +50,25 @@ class MainMenu:
     
     def program_navigation(self, selection, exit_int):
         if int(selection) == exit_int:
-            #exit_int is set by main.py, depending on the length of the options array there.
+            # exit_int is set by main.py, depending on the length of the options array there.
             print(f"\nBye, thanks for using ST1507 DSAA: Assignment Statement Evaluator & Sorter")
             exit()
         elif int(selection) == 1:
-            print("Function 1 is not implemented yet!")
+            leftTree = BinaryTree('Chapter 1',
+                      BinaryTree('Section 1.1'),
+                      BinaryTree('Section 1.2',
+                                 BinaryTree('Section 1.2.1'),
+                                 None))
+
+            rightTree = BinaryTree('Chapter 2',
+                       BinaryTree('Section 2.1'),
+                       BinaryTree('Section 2.2',
+                                  BinaryTree('Section 2.2.1'),
+                                  BinaryTree('Section 2.2.2')))
+
+            tree = BinaryTree('Contents', leftTree, rightTree)
+            tree.printPreorder(0)
+
         elif int(selection) == 2:
             print("Function 2 is not implemented yet!")
         elif int(selection) == 3:
