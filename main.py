@@ -18,7 +18,7 @@ Usage:
 """
 
 
-from application.Menu import MainMenu
+from application.menu import MainMenu
 
 program_running = True
 

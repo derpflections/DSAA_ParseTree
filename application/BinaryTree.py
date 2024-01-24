@@ -6,7 +6,6 @@
 BinaryTree.py
 '''
 
-
 class BinaryTree:
     def __init__(self, key, left = None, right = None):
         self.key = key
