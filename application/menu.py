@@ -79,14 +79,7 @@ class MainMenu:
         elif int(selection) == 2:
             opt2_parseInserter = ParseInserter(self.Hash)
             print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
-            # Check if any value in the hashtable is None
-            for id in self.Hash.__getkeys__():
-                # print(f"{self.Hash[id].getExp()}")
-                opt2_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
-            for id in self.Hash.__getkeys__():
-                opt2_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
-                if self.Hash[id] != None:
-                    print(f"{self.Hash[id]}")
+            print(self.Hash)
             input("\nPress enter to continue...")
 
         elif int(selection) == 3:
@@ -126,16 +119,11 @@ class MainMenu:
                 print(f"Warning, {i} invalid assignments were found and skipped.")
                 
             print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
-            # Check if any value in the hashtable is None
-            for id in self.Hash.__getkeys__():
-                # print(f"{self.Hash[id].getExp()}")
-                opt4_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
-
+            
             for id in self.Hash.__getkeys__():
                 opt4_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
-
-                if self.Hash[id] != None:
-                    print(f"{self.Hash[id]}")
+            
+            print(self.Hash)
             input("\nPress enter to continue...")
 
 

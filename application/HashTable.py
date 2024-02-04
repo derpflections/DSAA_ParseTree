@@ -126,9 +126,11 @@ class HashTable:
       
     def __str__(self):
         output_str = ""
-        for key, value in zip(self.keys, self.buckets):
-            if key is not None:
-                output_str += (f"{key}: {value}")
-                output_str += '\n'
+        sorted_keys = self.__getkeys__()
+        
+        for key in sorted_keys:
+            value = self.__getitem__(key)
+            output_str += f"{value}\n"
+        
         return output_str
 
