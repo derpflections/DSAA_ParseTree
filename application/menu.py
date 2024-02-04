@@ -14,6 +14,7 @@ from application.ParseTree import ParseTree
 from application.HashTable import HashTable
 from application.Variable import Variable
 from application.FileReader import fileReader
+from application.AssignmentEvaluator import AssignmentEvaluator
     
 class MainMenu:
     def __init__(self, options = None):
@@ -114,4 +115,5 @@ class MainMenu:
                 if self.Hash[id] != None:
                     print(f"{self.Hash[id]}")               
         elif int(selection) == 5:
-            print("Function 5 is not implemented yet!")
+            opt5_evaluator = AssignmentEvaluator(self.Hash)
+            print(self.Hash)
