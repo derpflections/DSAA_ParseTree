@@ -101,10 +101,11 @@ class MainMenu:
         elif int(selection) == 3:
             print("Function 3 is not implemented yet!")
         elif int(selection) == 4:
-            target_file = input("Enter the file path: ")
-            opt4_fileReader = (fileReader(target_file, 'list'))
-            contents = opt4_fileReader.read_contents()
-            print(contents)
+            validFile = True
+            while validFile:
+                target_file = input("Enter the file path: ")
+                opt4_fileReader = (fileReader(target_file, 'list'))
+                validFile, contents = opt4_fileReader.read_contents()
             for expression in contents:
                 parser = ParseTree(expression)
                 evaluation = parser.evaluate(parser.buildParseTree(expression))
