@@ -13,6 +13,7 @@ menu.py
 from application.ParseTree import ParseTree
 from application.HashTable import HashTable
 from application.Variable import Variable
+from application.FileReader import fileReader
     
 class MainMenu:
     def __init__(self, options = None):
@@ -84,6 +85,18 @@ class MainMenu:
         elif int(selection) == 3:
             print("Function 3 is not implemented yet!")
         elif int(selection) == 4:
-            print("Function 4 is not implemented yet!")
+            target_file = input("Enter the file path: ")
+            opt4_fileReader = (fileReader(target_file, 'list'))
+            contents = opt4_fileReader.read_contents()
+            print(contents)
+            for expression in contents:
+                parser = ParseTree(expression)
+                evaluation = parser.evaluate(parser.buildParseTree(expression))
+                alpha = expression.strip()[0]
+                self.Hash[alpha] = Variable(expression, evaluation)
+            print("\nCURRENT ASSIGNMENT:\n*******************")
+            for id in self.Hash.__getkeys__():
+                if self.Hash[id] != None:
+                    print(f"{self.Hash[id]}")               
         elif int(selection) == 5:
             print("Function 5 is not implemented yet!")
