@@ -12,6 +12,7 @@ menu.py
 # from Stack import Stack
 from application.ParseTree import ParseTree
 from application.HashTable import HashTable
+from application.Variable import Variable
     
 class MainMenu:
     def __init__(self, options = None):
@@ -64,17 +65,17 @@ class MainMenu:
             # tree.printInorder(0)
             evaluation = parser.evaluate(tree)
             alpha = exp.strip()[0]
-            self.Hash[alpha] = evaluation
+            self.Hash[alpha] = Variable(exp, evaluation)
             print(ord(alpha) - 96, evaluation)
             # print(evaluation) # remove this line when you are done with the program
             input("\nPress enter to continue...")
 
         elif int(selection) == 2:
-            print("\nCURRENT ASSIGNMENT:")
-            keys = self.Hash.__getkeys__()
-            for key in keys:
-                value = self.Hash[key]
-                print(f"{key}: {value}")
+            print("\nCURRENT ASSIGNMENT:\n*******************")
+            for id in self.Hash.__getkeys__():
+                if self.Hash[id] != None:
+                    print(f"{self.Hash[id]}")
+            input("\nPress enter to continue...")
 
         elif int(selection) == 3:
             print("Function 3 is not implemented yet!")
