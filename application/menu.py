@@ -60,9 +60,13 @@ class MainMenu:
             exit()
         elif int(selection) == 1:
             exp = input("Enter the assignment statement you want to modify:\nFor example, a=(1+2)\n")
+            # tree.printInorder(0)
+            for key in self.Hash.__getkeys__():
+                if key in exp:
+                    value = self.Hash.__getitem__(key).getEval()
+                    exp = exp.replace(key, str(value))
             parser = ParseTree(exp)
             tree = parser.buildParseTree(exp)
-            # tree.printInorder(0)
             evaluation = parser.evaluate(tree)
             alpha = exp.strip()[0]
             self.Hash[alpha] = Variable(exp, evaluation)
@@ -71,8 +75,8 @@ class MainMenu:
             input("\nPress enter to continue...")
 
         elif int(selection) == 2:
-            print("\nCURRENT ASSIGNMENT:\n*******************")
-            for id in self.Hash.__getkeys__():
+            print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
+            for id in sorted(self.Hash.__getkeys__()):
                 if self.Hash[id] != None:
                     print(f"{self.Hash[id]}")
             input("\nPress enter to continue...")

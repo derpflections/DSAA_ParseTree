@@ -66,6 +66,7 @@ class ParseTree:
       rightTree = tree.getRightTree()
       op = tree.getKey()
       if leftTree != None and rightTree != None:
+          
           if op == "+":
               return self.evaluate(leftTree) + self.evaluate(rightTree)
           elif op == "-":
@@ -80,6 +81,7 @@ class ParseTree:
                   raise ValueError("Division by zero is undefined")
           elif op == "**":
               return self.evaluate(leftTree) ** self.evaluate(rightTree)
+              
       else:
           return tree.getKey()
       
