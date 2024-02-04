@@ -1,7 +1,7 @@
 import os
 
-class fileReader():
-    def __init__(self, input, output):
+class fileManipulator():
+    def __init__(self, input = '', output = ''):
         self.__input = input
         self.__output = output
     
@@ -32,3 +32,9 @@ class fileReader():
         except Exception as e:
             print(f"Unknown error occurred. Please try again later.\n Debug info: {e}")
         return True, None
+    
+    def write_contents(self, input_list):
+        with open(self.__output, "w") as output_file:
+            for line in input_list:
+                line = '\n' if line == "" else line
+                output_file.write(line)
