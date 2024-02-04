@@ -15,6 +15,32 @@ from application.HashTable import HashTable
 from application.Variable import Variable
 from application.FileReader import fileReader
 from application.AssignmentEvaluator import AssignmentEvaluator
+
+def checkForAlpha(self, exp, alpha):
+    if any(key in exp.strip() for key in self.Hash.__getkeys__()):
+        replaced_exp = exp.strip()
+                    
+        for key in self.Hash.__getkeys__():
+            if key in replaced_exp.split('=')[1].strip():
+                value = self.Hash.__getitem__(key).getEval()
+                replaced_exp = replaced_exp.strip().replace(key, str(value))
+                # print(replaced_exp)
+                    
+        if any(c.isalpha() for c in replaced_exp.split('=')[1].strip()):
+            evaluation = None
+            self.Hash[alpha] = Variable(exp, evaluation)
+
+        else:    
+            parser = ParseTree(replaced_exp)
+            tree = parser.buildParseTree(replaced_exp)
+            evaluation = parser.evaluate(tree)
+            self.Hash[alpha] = Variable(exp.strip(), evaluation)
+
+    else: 
+        parser = ParseTree(exp)
+        tree = parser.buildParseTree(exp)
+        evaluation = parser.evaluate(tree)
+        self.Hash[alpha] = Variable(exp.strip(), evaluation)
     
 class MainMenu:
     def __init__(self, options = None):
@@ -60,46 +86,41 @@ class MainMenu:
             # exit_int is set by main.py, depending on the length of the options array there.
             print(f"\nBye, thanks for using ST1507 DSAA: Assignment Statement Evaluator & Sorter")
             exit()
+
         elif int(selection) == 1:
-            exp = input("Enter the assignment statement you want to modify:\nFor example, a=(1+2)\n")
-            alpha = exp.split('=')[0].strip()
-            print(alpha)
-
-            # PROLLY PUT THIS IN A FUNC
-            if any(key in exp.strip() for key in self.Hash.__getkeys__()):
-                for key in self.Hash.__getkeys__():
-                    if key in exp.strip():
-                        value = self.Hash.__getitem__(key).getEval()
-                        replaced_exp = exp.strip().replace(key, str(value))
-                        print(replaced_exp)
+            while True:
+                exp = input("Enter the assignment statement you want to modify:\nFor example, a=(1+2)\n")
+                if not exp.strip():
+                    print("Invalid input. Please provide a valid assignment statement.")
+                    continue
                 
-                if any(c.isalpha() for c in replaced_exp[1:]):
-                    evaluation = None
-                    self.Hash[alpha] = Variable(exp, evaluation)
+                alpha = exp.split('=')[0].strip()
+                print(alpha)
 
-                else:    
-                    parser = ParseTree(replaced_exp)
-                    tree = parser.buildParseTree(replaced_exp)
-                    evaluation = parser.evaluate(tree)
-                    self.Hash[alpha] = Variable(exp, evaluation)
+                checkForAlpha(self, exp, alpha)
 
-            else: 
-                parser = ParseTree(exp)
-                tree = parser.buildParseTree(exp)
-                evaluation = parser.evaluate(tree)
-                self.Hash[alpha] = Variable(exp, evaluation)
                 # print(evaluation) # remove this line when you are done with the program
-            input("\nPress enter to continue...")
+                input("\nPress enter to continue...")
+                break  # Exit the loop after valid input is provided
+
 
         elif int(selection) == 2:
             print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
+
+            # Check if any value in the hashtable is None
             for id in sorted(self.Hash.__getkeys__()):
+                # print(f"{self.Hash[id].getExp()}")
+                checkForAlpha(self, self.Hash[id].getExp(), id)
+
+            for id in sorted(self.Hash.__getkeys__()):
+                checkForAlpha(self, self.Hash[id].getExp(), id)
                 if self.Hash[id] != None:
                     print(f"{self.Hash[id]}")
             input("\nPress enter to continue...")
 
         elif int(selection) == 3:
             print("Function 3 is not implemented yet!")
+
         elif int(selection) == 4:
             validFile = True
             while validFile:
