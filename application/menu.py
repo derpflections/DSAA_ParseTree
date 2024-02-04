@@ -62,17 +62,25 @@ class MainMenu:
         elif int(selection) == 1:
             exp = input("Enter the assignment statement you want to modify:\nFor example, a=(1+2)\n")
             # tree.printInorder(0)
-            for key in self.Hash.__getkeys__():
-                if key in exp:
-                    value = self.Hash.__getitem__(key).getEval()
-                    exp = exp.replace(key, str(value))
-            parser = ParseTree(exp)
-            tree = parser.buildParseTree(exp)
-            evaluation = parser.evaluate(tree)
-            alpha = exp.strip()[0]
-            self.Hash[alpha] = Variable(exp, evaluation)
-            print(ord(alpha) - 96, evaluation)
-            # print(evaluation) # remove this line when you are done with the program
+            if any(key in exp for key in self.Hash.__getkeys__()):
+                for key in self.Hash.__getkeys__():
+                    if key in exp:
+                        value = self.Hash.__getitem__(key).getEval()
+                        replaced_exp = exp.replace(key, str(value))
+                        parser = ParseTree(replaced_exp)
+                        tree = parser.buildParseTree(replaced_exp)
+                        evaluation = parser.evaluate(tree)
+                        alpha = exp.strip()[0]
+                        self.Hash[alpha] = Variable(exp, evaluation)
+                        print(ord(alpha) - 96, evaluation)
+            else: 
+                parser = ParseTree(exp)
+                tree = parser.buildParseTree(exp)
+                evaluation = parser.evaluate(tree)
+                alpha = exp.strip()[0]
+                self.Hash[alpha] = Variable(exp, evaluation)
+                print(ord(alpha) - 96, evaluation)
+                # print(evaluation) # remove this line when you are done with the program
             input("\nPress enter to continue...")
 
         elif int(selection) == 2:
