@@ -32,9 +32,10 @@ class ParseInserter():
                     return True
 
         else: 
+            # first run of the program shouldn't have any variables on the right hand side
             if any(c.isalpha() for c in exp.split('=')[1]):
-                print("Invalid input. Please provide a valid assignment statement.")
-                return True
+                evaluation = None
+                self.__Hash[alpha] = Variable(exp, evaluation)
             else:
                 parser = ParseTree(exp)
                 tree = parser.buildParseTree(exp)
