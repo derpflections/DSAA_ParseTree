@@ -17,6 +17,7 @@ from application.FileReader import fileManipulator
 from application.AssignmentEvaluator import AssignmentEvaluator
 from application.ParseInsert import ParseInserter
 
+class MainMenu:
     def __init__(self, options = None):
         self.border_length = 71
         self.border = '*' * self.border_length
@@ -104,7 +105,6 @@ from application.ParseInsert import ParseInserter
                     print(f'Value for variable "{eval_var}" is {self.Hash[eval_var].getEval()}')
                 input("\nPress enter to continue...")
                 break
-
 
         elif int(selection) == 4:
             opt4_parseInserter = ParseInserter(self.Hash)
