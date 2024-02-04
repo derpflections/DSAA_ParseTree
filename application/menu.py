@@ -8,13 +8,17 @@ menu.py
 
 '''
 
-from application.BinaryTree import BinaryTree
+# from BinaryTree import BinaryTree
+# from Stack import Stack
+from application.ParseTree import ParseTree
+from application.HashTable import HashTable
     
 class MainMenu:
     def __init__(self, options = None):
         self.border_length = 71
         self.border = '*' * self.border_length
         self.options = options
+        self.Hash = HashTable(26)
     
     def display_welcome_screen(self):
         print("\n\n")
@@ -54,23 +58,24 @@ class MainMenu:
             print(f"\nBye, thanks for using ST1507 DSAA: Assignment Statement Evaluator & Sorter")
             exit()
         elif int(selection) == 1:
-            leftTree = BinaryTree('Chapter 1',
-                      BinaryTree('Section 1.1'),
-                      BinaryTree('Section 1.2',
-                                 BinaryTree('Section 1.2.1'),
-                                 None))
-
-            rightTree = BinaryTree('Chapter 2',
-                       BinaryTree('Section 2.1'),
-                       BinaryTree('Section 2.2',
-                                  BinaryTree('Section 2.2.1'),
-                                  BinaryTree('Section 2.2.2')))
-
-            tree = BinaryTree('Contents', leftTree, rightTree)
-            tree.printPreorder(0)
+            exp = input("Enter the assignment statement you want to modify:\nFor example, a=(1+2)\n")
+            parser = ParseTree(exp)
+            tree = parser.buildParseTree(exp)
+            # tree.printInorder(0)
+            evaluation = parser.evaluate(tree)
+            alpha = exp.strip()[0]
+            self.Hash[alpha] = evaluation
+            print(ord(alpha) - 96, evaluation)
+            # print(evaluation) # remove this line when you are done with the program
+            input("\nPress enter to continue...")
 
         elif int(selection) == 2:
-            print("Function 2 is not implemented yet!")
+            print("\nCURRENT ASSIGNMENT:")
+            keys = self.Hash.__getkeys__()
+            for key in keys:
+                value = self.Hash[key]
+                print(f"{key}: {value}")
+
         elif int(selection) == 3:
             print("Function 3 is not implemented yet!")
         elif int(selection) == 4:
