@@ -109,13 +109,11 @@ class MainMenu:
 
         elif int(selection) == 4:
             # opt4_parseInserter = ParseInserter(self.Hash)
-            # invalidFile = True
+            invalidFile = True
             # invalidContent = True
             # while invalidContent:
             #     while invalidFile:
-            #         target_file = input("Enter the file path: ")
-            #         opt4_fileManipulator = (fileManipulator(target_file, 'list'))
-            #         invalidFile, contents = opt4_fileManipulator.read_contents()
+
             #     for expression in contents:
             #         try:
             #             alpha = expression.split('=')[0].strip()
@@ -136,12 +134,14 @@ class MainMenu:
             #         print(f"{self.Hash[id]}") 
 
             opt4_parseInserter = ParseInserter(self.Hash)
-            target_file = input("Enter the file path: ")
-            opt4_fileManipulator = (fileManipulator(target_file, 'list'))
-            invalidFile, contents = opt4_fileManipulator.read_contents()
-            print(contents)
+            while invalidFile:
+                    target_file = input("Enter the file path: ")
+                    opt4_fileManipulator = (fileManipulator(target_file, 'list'))
+                    invalidFile, contents = opt4_fileManipulator.read_contents()
             for exp in contents:
                 alpha = exp.split('=')[0].strip()
+                if opt4_parseInserter.checkValidity(alpha):
+                    continue
                 opt4_parseInserter.checkForAlpha(exp, alpha)
             print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
 

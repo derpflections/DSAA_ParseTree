@@ -40,3 +40,9 @@ class ParseInserter():
                 tree = parser.buildParseTree(exp)
                 evaluation = parser.evaluate(tree)
                 self.__Hash[alpha] = Variable(exp, evaluation)
+    
+    def checkValidity(self, alpha):
+        if alpha.isalpha() == False:
+            return True
+        else:
+            return False
