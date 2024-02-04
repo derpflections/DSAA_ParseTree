@@ -14,6 +14,7 @@ from application.ParseTree import ParseTree
 from application.HashTable import HashTable
 from application.Variable import Variable
 from application.FileReader import fileReader
+from application.AssignmentEvaluator import AssignmentEvaluator
 
 def checkForAlpha(self, exp, alpha):
     if any(key in exp.strip() for key in self.Hash.__getkeys__()):
@@ -135,4 +136,5 @@ class MainMenu:
                 if self.Hash[id] != None:
                     print(f"{self.Hash[id]}")               
         elif int(selection) == 5:
-            print("Function 5 is not implemented yet!")
+            opt5_evaluator = AssignmentEvaluator(self.Hash)
+            print(self.Hash)
