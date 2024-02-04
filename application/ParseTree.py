@@ -9,6 +9,7 @@ ParseTree.py
 import re
 from application.BinaryTree import BinaryTree
 from application.Stack import Stack
+# from application.Variable import Variable
 # from BinaryTree import BinaryTree
 # from Stack import Stack
 
@@ -60,6 +61,7 @@ class ParseTree:
           else:
               raise ValueError
       return tree
+  
 
   def evaluate(self, tree):
       leftTree = tree.getLeftTree()
