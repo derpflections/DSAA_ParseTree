@@ -65,7 +65,9 @@ class ParseTree:
       leftTree = tree.getLeftTree()
       rightTree = tree.getRightTree()
       op = tree.getKey()
+
       if leftTree != None and rightTree != None:
+          
           if op == "+":
               return self.evaluate(leftTree) + self.evaluate(rightTree)
           elif op == "-":
@@ -80,11 +82,12 @@ class ParseTree:
                   raise ValueError("Division by zero is undefined")
           elif op == "**":
               return self.evaluate(leftTree) ** self.evaluate(rightTree)
+              
       else:
           return tree.getKey()
       
 
-# # main program
+# main program
 # if __name__ == "__main__":
 #     exp = input("Enter the assignment statement you want to modify:\nFor example, a=(1+2)\n")
 #     parser = ParseTree(exp)
