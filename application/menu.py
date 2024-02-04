@@ -17,7 +17,6 @@ from application.FileReader import fileManipulator
 from application.AssignmentEvaluator import AssignmentEvaluator
 from application.ParseInsert import ParseInserter
 
-class MainMenu:
     def __init__(self, options = None):
         self.border_length = 71
         self.border = '*' * self.border_length
@@ -80,7 +79,7 @@ class MainMenu:
             opt2_parseInserter = ParseInserter(self.Hash)
             print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
             # Check if any value in the hashtable is None
-            for id in sorted(self.Hash.__getkeys__()):
+            for id in self.Hash.__getkeys__():
                 # print(f"{self.Hash[id].getExp()}")
                 opt2_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
             for id in sorted(self.Hash.__getkeys__()):
@@ -90,7 +89,22 @@ class MainMenu:
             input("\nPress enter to continue...")
 
         elif int(selection) == 3:
-            print("Function 3 is not implemented yet!")
+            while True:
+                eval_var = input("Enter the variable you want to evaluate:\n")
+                
+                if self.Hash[eval_var] == None:
+                    print("Variable not found!")
+                    continue
+                else:
+                    exp = self.Hash[eval_var].getExp()
+                    parser = ParseTree(exp)
+                    tree = parser.buildParseTree(exp)
+                    print("\nExpression Tree:")
+                    tree.printInorder(0)
+                    print(f'Value for variable "{eval_var}" is {self.Hash[eval_var].getEval()}')
+                input("\nPress enter to continue...")
+                break
+
 
         elif int(selection) == 4:
             opt4_parseInserter = ParseInserter(self.Hash)

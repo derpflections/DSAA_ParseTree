@@ -84,13 +84,18 @@ class BinaryTree:
         else:
             t = BinaryTree(key)
             self.rightTree, t.rightTree = t, self.rightTree
-
+    
     def printInorder(self, level):
-        if self.leftTree != None:
-            self.leftTree.printInorder(level + 1)
-
-        print(str(level * "-") + str(self.key))
 
         if self.rightTree != None:
             self.rightTree.printInorder(level + 1)
+
+        print(str(level * ".") + str(self.key))
+        
+        if self.leftTree != None:
+            self.leftTree.printInorder(level + 1)
+
+
+
+
 
