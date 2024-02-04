@@ -48,3 +48,11 @@ class HashTable:
                 
     def __getkeys__(self):
         return [key for key in self.keys if key is not None]
+    
+    def __str__(self):
+        output_str = ""
+        for key, value in zip(self.keys, self.buckets):
+            if key is not None:
+                output_str += (f"{key}: {value}")
+                output_str += '\n'
+        return output_str
