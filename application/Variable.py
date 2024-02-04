@@ -8,16 +8,15 @@ Variable.py
 
 class Variable:
     def __init__(self, exp, eval):
-        self.exp = exp
-        self.eval = eval
+        self.__exp = exp
+        self.__eval = eval
 
     def getExp(self):
-        return self.exp
+        return self.__exp
     
     def getEval(self):
-        return self.eval
+        return self.__eval
 
     def __str__(self):
         output = f"{self.exp}=> {self.eval}"
         return output
-    
