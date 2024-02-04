@@ -21,12 +21,12 @@ def checkForAlpha(self, exp, alpha):
         replaced_exp = exp.strip()
                     
         for key in self.Hash.__getkeys__():
-            if key in replaced_exp[1:]:
+            if key in replaced_exp.split('=')[1].strip():
                 value = self.Hash.__getitem__(key).getEval()
                 replaced_exp = replaced_exp.strip().replace(key, str(value))
                 # print(replaced_exp)
                     
-        if any(c.isalpha() for c in replaced_exp[1:]):
+        if any(c.isalpha() for c in replaced_exp.split('=')[1].strip()):
             evaluation = None
             self.Hash[alpha] = Variable(exp, evaluation)
 
@@ -95,7 +95,7 @@ class MainMenu:
                     continue
                 
                 alpha = exp.split('=')[0].strip()
-                # print(alpha)
+                print(alpha)
 
                 checkForAlpha(self, exp, alpha)
 
