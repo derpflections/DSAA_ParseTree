@@ -1,7 +1,7 @@
 import os
 
 class fileReader():
-    def __init__(input, output):
+    def __init__(self, input, output):
         self.__input = input
         self.__output = output
     
@@ -9,7 +9,11 @@ class fileReader():
         try:
             with open(self.__input, "r") as contents:
                 if type == "list":
-                    output_list = [line for line in contents]
+                    content_list = [line for line in contents]
+                    output_list = []
+                    for line in content_list:
+                        line = line.replace("\n", "")
+                        output_list.append(line)
                     return output_list
                 elif type == "dict":
                     output_dict = {}
