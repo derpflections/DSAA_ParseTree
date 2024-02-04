@@ -9,7 +9,6 @@ ParseTree.py
 import re
 from application.BinaryTree import BinaryTree
 from application.Stack import Stack
-# from application.Variable import Variable
 # from BinaryTree import BinaryTree
 # from Stack import Stack
 
@@ -18,15 +17,26 @@ class ParseTree:
       self.exp = exp
 
   def buildParseTree(self, exp):
+      # get the right hand side of the expression only  
+      exp = exp.split("=")[1].strip()
+
       # since ** is not supported in python, we replace it with ^ first
       exp = exp.replace("**", "^")
-      tokens = re.findall(r"\(|\)|\d+\.?\d*|\+|\-|\*|\/|\^", exp)
+      tokens = re.findall(r"\(|\)|\d+\.?\d*|\+|\-|\*|\/|\^|[A-Za-z]+", exp)
+
 
       stack = Stack()
       tree = BinaryTree("?")
       stack.push(tree)
       currentTree = tree
       for t in tokens:
+          # RULE 0: If token is a variable, set key of current node
+          if t.isalpha():
+            currentTree.setKey(t)
+            parent = stack.pop()
+            currentTree = parent
+            continue
+
           # RULE 1: If token is '(' add a new node as left child
           # and descend into that node
           if t == "(":
@@ -61,7 +71,7 @@ class ParseTree:
           else:
               raise ValueError
       return tree
-  
+
 
   def evaluate(self, tree):
       leftTree = tree.getLeftTree()
@@ -89,9 +99,9 @@ class ParseTree:
           return tree.getKey()
       
 
-# main program
+# # main program
 # if __name__ == "__main__":
-#     exp = input("Enter the assignment statement you want to modify:\nFor example, a=(1+2)\n")
+#     exp = 'Pear=(Apple*3)'
 #     parser = ParseTree(exp)
 #     tree = parser.buildParseTree(exp)
 #     tree.printInorder(0)

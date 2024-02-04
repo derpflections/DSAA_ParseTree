@@ -1,3 +1,11 @@
+# Name: Teo Wei Qi & Lee Hong Yi
+# Student ID: p2201902 & p2223010
+# Class: DAAA/FT/2B/07
+
+'''
+HashTable.py
+'''
+
 # class HashTable:
 #     def __init__(self, size):
 #         self.size = size
@@ -114,7 +122,7 @@ class HashTable:
                     return None
 
     def __getkeys__(self):
-        return [key for key in self.keys if key is not None]
+        return sorted([key for key in self.keys if key is not None])
       
     def __str__(self):
         output_str = ""

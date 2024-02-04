@@ -17,13 +17,16 @@ from application.FileReader import fileReader
 from application.AssignmentEvaluator import AssignmentEvaluator
 
 def checkForAlpha(self, exp, alpha):
-    if any(key in exp.strip() for key in self.Hash.__getkeys__()):
-        replaced_exp = exp.strip()
+    exp = exp.strip()
+    exp = exp.replace(" ", "")
+
+    if any(key in exp for key in self.Hash.__getkeys__()):
+        replaced_exp = exp
                     
         for key in self.Hash.__getkeys__():
             if key in replaced_exp.split('=')[1].strip():
                 value = self.Hash.__getitem__(key).getEval()
-                replaced_exp = replaced_exp.strip().replace(key, str(value))
+                replaced_exp = replaced_exp.replace(key, str(value))
                 # print(replaced_exp)
                     
         if any(c.isalpha() for c in replaced_exp.split('=')[1].strip()):
@@ -34,13 +37,13 @@ def checkForAlpha(self, exp, alpha):
             parser = ParseTree(replaced_exp)
             tree = parser.buildParseTree(replaced_exp)
             evaluation = parser.evaluate(tree)
-            self.Hash[alpha] = Variable(exp.strip(), evaluation)
+            self.Hash[alpha] = Variable(exp, evaluation)
 
     else: 
         parser = ParseTree(exp)
         tree = parser.buildParseTree(exp)
         evaluation = parser.evaluate(tree)
-        self.Hash[alpha] = Variable(exp.strip(), evaluation)
+        self.Hash[alpha] = Variable(exp, evaluation)
     
 class MainMenu:
     def __init__(self, options = None):
@@ -95,7 +98,7 @@ class MainMenu:
                     continue
                 
                 alpha = exp.split('=')[0].strip()
-                print(alpha)
+                # print(alpha)
 
                 checkForAlpha(self, exp, alpha)
 
@@ -108,18 +111,34 @@ class MainMenu:
             print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
 
             # Check if any value in the hashtable is None
-            for id in sorted(self.Hash.__getkeys__()):
+            for id in self.Hash.__getkeys__():
                 # print(f"{self.Hash[id].getExp()}")
                 checkForAlpha(self, self.Hash[id].getExp(), id)
 
-            for id in sorted(self.Hash.__getkeys__()):
+            for id in self.Hash.__getkeys__():
                 checkForAlpha(self, self.Hash[id].getExp(), id)
+
                 if self.Hash[id] != None:
                     print(f"{self.Hash[id]}")
             input("\nPress enter to continue...")
 
         elif int(selection) == 3:
-            print("Function 3 is not implemented yet!")
+            while True:
+                eval_var = input("Enter the variable you want to evaluate:\n")
+                
+                if self.Hash[eval_var] == None:
+                    print("Variable not found!")
+                    continue
+                else:
+                    exp = self.Hash[eval_var].getExp()
+                    parser = ParseTree(exp)
+                    tree = parser.buildParseTree(exp)
+                    print("\nExpression Tree:")
+                    tree.printInorder(0)
+                    print(f'Value for variable "{eval_var}" is {self.Hash[eval_var].getEval()}')
+                input("\nPress enter to continue...")
+                break
+
 
         elif int(selection) == 4:
             target_file = input("Enter the file path: ")
