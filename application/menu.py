@@ -16,7 +16,6 @@ from application.Variable import Variable
 from application.FileReader import fileManipulator
 from application.AssignmentEvaluator import AssignmentEvaluator
 from application.ParseInsert import ParseInserter
-
 class MainMenu:
     def __init__(self, options = None):
         self.border_length = 71
@@ -83,7 +82,7 @@ class MainMenu:
             for id in self.Hash.__getkeys__():
                 # print(f"{self.Hash[id].getExp()}")
                 opt2_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
-            for id in sorted(self.Hash.__getkeys__()):
+            for id in self.Hash.__getkeys__():
                 opt2_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
                 if self.Hash[id] != None:
                     print(f"{self.Hash[id]}")
@@ -106,31 +105,58 @@ class MainMenu:
                 input("\nPress enter to continue...")
                 break
 
+
         elif int(selection) == 4:
+            # opt4_parseInserter = ParseInserter(self.Hash)
+            # invalidFile = True
+            # invalidContent = True
+            # while invalidContent:
+            #     while invalidFile:
+            #         target_file = input("Enter the file path: ")
+            #         opt4_fileManipulator = (fileManipulator(target_file, 'list'))
+            #         invalidFile, contents = opt4_fileManipulator.read_contents()
+            #     for expression in contents:
+            #         try:
+            #             alpha = expression.split('=')[0].strip()
+            #             invalidContent = opt4_parseInserter.checkForAlpha(expression, alpha)
+            #         except IndexError:
+            #             print("Invalid input. Please provide a valid assignment statement.")
+            #             invalidContent, invalidFile = True, True
+            #             break
+            #         except Exception as e:
+            #             print(f"Unknown error occurred. Please try again later.\n Debug info: {e}")
+            #             invalidContent, invalidFile = True, True
+            #             break
+            #         opt4_parseInserter.checkForAlpha(expression, alpha)
+            # print("\nCURRENT ASSIGNMENT:\n*******************")
+            # for id in self.Hash.__getkeys__():
+            #     opt4_parseInserter.checkForAlpha(expression, alpha)
+            #     if self.Hash[id] != None:
+            #         print(f"{self.Hash[id]}") 
+
             opt4_parseInserter = ParseInserter(self.Hash)
-            invalidFile = True
-            invalidContent = True
-            while invalidContent:
-                while invalidFile:
-                    target_file = input("Enter the file path: ")
-                    opt4_fileManipulator = (fileManipulator(target_file, 'list'))
-                    invalidFile, contents = opt4_fileManipulator.read_contents()
-                for expression in contents:
-                    try:
-                        alpha = expression.split('=')[0].strip()
-                        invalidContent = opt4_parseInserter.checkForAlpha(expression, alpha)
-                    except IndexError:
-                        print("Invalid input. Please provide a valid assignment statement.")
-                        invalidContent, invalidFile = True, True
-                        break
-                    except Exception as e:
-                        print(f"Unknown error occurred. Please try again later.\n Debug info: {e}")
-                        invalidContent, invalidFile = True, True
-                        break
-            print("\nCURRENT ASSIGNMENT:\n*******************")
+            target_file = input("Enter the file path: ")
+            opt4_fileManipulator = (fileManipulator(target_file, 'list'))
+            invalidFile, contents = opt4_fileManipulator.read_contents()
+            print(contents)
+            for exp in contents:
+                alpha = exp.split('=')[0].strip()
+                opt4_parseInserter.checkForAlpha(exp, alpha)
+            print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
+
+            # Check if any value in the hashtable is None
             for id in self.Hash.__getkeys__():
+                # print(f"{self.Hash[id].getExp()}")
+                opt4_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
+
+            for id in self.Hash.__getkeys__():
+                opt4_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
+
                 if self.Hash[id] != None:
-                    print(f"{self.Hash[id]}") 
+                    print(f"{self.Hash[id]}")
+            input("\nPress enter to continue...")
+
+
         elif int(selection) == 5:
             output_file = input("Please enter output file: ")
             opt5_evaluator = AssignmentEvaluator(self.Hash)
