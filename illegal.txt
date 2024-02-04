@@ -1,0 +1,6 @@
+*** = 3
+023 = 4
+!@#DF = 3
+h3llo = hello
+h3llo = 4
+hell0 = 8

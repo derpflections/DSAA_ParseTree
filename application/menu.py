@@ -110,29 +110,7 @@ class MainMenu:
         elif int(selection) == 4:
             # opt4_parseInserter = ParseInserter(self.Hash)
             invalidFile = True
-            # invalidContent = True
-            # while invalidContent:
-            #     while invalidFile:
-
-            #     for expression in contents:
-            #         try:
-            #             alpha = expression.split('=')[0].strip()
-            #             invalidContent = opt4_parseInserter.checkForAlpha(expression, alpha)
-            #         except IndexError:
-            #             print("Invalid input. Please provide a valid assignment statement.")
-            #             invalidContent, invalidFile = True, True
-            #             break
-            #         except Exception as e:
-            #             print(f"Unknown error occurred. Please try again later.\n Debug info: {e}")
-            #             invalidContent, invalidFile = True, True
-            #             break
-            #         opt4_parseInserter.checkForAlpha(expression, alpha)
-            # print("\nCURRENT ASSIGNMENT:\n*******************")
-            # for id in self.Hash.__getkeys__():
-            #     opt4_parseInserter.checkForAlpha(expression, alpha)
-            #     if self.Hash[id] != None:
-            #         print(f"{self.Hash[id]}") 
-
+            i = 0
             opt4_parseInserter = ParseInserter(self.Hash)
             while invalidFile:
                     target_file = input("Enter the file path: ")
@@ -141,10 +119,13 @@ class MainMenu:
             for exp in contents:
                 alpha = exp.split('=')[0].strip()
                 if opt4_parseInserter.checkValidity(alpha):
+                    i += 1
                     continue
                 opt4_parseInserter.checkForAlpha(exp, alpha)
+            if i > 0:
+                print(f"Warning, {i} invalid assignments were found and skipped.")
+                
             print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
-
             # Check if any value in the hashtable is None
             for id in self.Hash.__getkeys__():
                 # print(f"{self.Hash[id].getExp()}")

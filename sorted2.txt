@@ -6,8 +6,8 @@ Banana=(2* (65.5 +2.25))
 Mango = ((Apple+ (Durian+ (Pear* (Blueberry* (Coconut/Strawberry)))))/2)
 
 *** Statements with value => 16
-Pear=(Apple+1)
 Blueberry=(Pear+0)
+Pear=(Apple+1)
 Starfruit=(2**4)
 Strawberry=(Pear*1)
 
@@ -18,6 +18,6 @@ Apple=(3*5)
 Coconut=(1+0)
 
 *** Statements with value => None
-Lemon=(Pear+Tangerine)
 Cherry=(Lemon/2)
+Lemon=(Pear+Tangerine)
 
