@@ -58,8 +58,8 @@ class HashTable:
         self.num_items = 0
 
     def hashFunction(self, key):
-        key = key.lower()
-        return ord(key) - ord('a')
+        key_int = sum(ord(char) for char in key)
+        return key_int % self.size
 
     def rehashFunction(self, oldHash):
         return (oldHash + 1) % self.size

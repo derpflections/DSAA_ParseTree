@@ -61,25 +61,32 @@ class MainMenu:
             exit()
         elif int(selection) == 1:
             exp = input("Enter the assignment statement you want to modify:\nFor example, a=(1+2)\n")
-            # tree.printInorder(0)
-            if any(key in exp for key in self.Hash.__getkeys__()):
+            alpha = exp.split('=')[0].strip()
+            print(alpha)
+
+            # PROLLY PUT THIS IN A FUNC
+            if any(key in exp.strip() for key in self.Hash.__getkeys__()):
                 for key in self.Hash.__getkeys__():
-                    if key in exp:
+                    if key in exp.strip():
                         value = self.Hash.__getitem__(key).getEval()
-                        replaced_exp = exp.replace(key, str(value))
-                        parser = ParseTree(replaced_exp)
-                        tree = parser.buildParseTree(replaced_exp)
-                        evaluation = parser.evaluate(tree)
-                        alpha = exp.strip()[0]
-                        self.Hash[alpha] = Variable(exp, evaluation)
-                        print(ord(alpha) - 96, evaluation)
+                        replaced_exp = exp.strip().replace(key, str(value))
+                        print(replaced_exp)
+                
+                if any(c.isalpha() for c in replaced_exp[1:]):
+                    evaluation = None
+                    self.Hash[alpha] = Variable(exp, evaluation)
+
+                else:    
+                    parser = ParseTree(replaced_exp)
+                    tree = parser.buildParseTree(replaced_exp)
+                    evaluation = parser.evaluate(tree)
+                    self.Hash[alpha] = Variable(exp, evaluation)
+
             else: 
                 parser = ParseTree(exp)
                 tree = parser.buildParseTree(exp)
                 evaluation = parser.evaluate(tree)
-                alpha = exp.strip()[0]
                 self.Hash[alpha] = Variable(exp, evaluation)
-                print(ord(alpha) - 96, evaluation)
                 # print(evaluation) # remove this line when you are done with the program
             input("\nPress enter to continue...")
 
