@@ -2,9 +2,9 @@
 # Student ID: p2201902 & p2223010
 # Class: DAAA/FT/2B/07
 
-'''
+"""
 HashTable.py
-'''
+"""
 
 # class HashTable:
 #     def __init__(self, size):
@@ -52,10 +52,11 @@ HashTable.py
 #             else:
 #                 index = self.rehashFunction(index)
 #                 if index == startIndex:
-#                     return None 
-                
+#                     return None
+
 #     def __getkeys__(self):
 #         return [key for key in self.keys if key is not None]
+
 
 class HashTable:
     def __init__(self, initial_size=10, load_factor=0.75):
@@ -123,14 +124,13 @@ class HashTable:
 
     def __getkeys__(self):
         return sorted([key for key in self.keys if key is not None])
-      
+
     def __str__(self):
         output_str = ""
         sorted_keys = self.__getkeys__()
-        
+
         for key in sorted_keys:
             value = self.__getitem__(key)
-            output_str += f"{key}:{value}\n"
-        
-        return output_str
+            output_str += f"{value}\n"
 
+        return output_str
