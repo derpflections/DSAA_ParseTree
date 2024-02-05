@@ -139,9 +139,6 @@ class MainMenu:
             opt5_fileManipulator.write_contents(opt5_evaluator.evaluation().split('\n'))
             # print(self.Hash)
     
-<<<<<<< Updated upstream
-
-=======
         elif int(selection) == 6:
             pass
         elif int(selection) == 7:
@@ -164,6 +161,5 @@ class MainMenu:
             pass
         elif int(selection) == 9:
             pass
->>>>>>> Stashed changes
 
 ##7261232
