@@ -64,14 +64,17 @@ class MainMenu:
         elif int(selection) == 1:
             opt1_parseInserter = ParseInserter(self.Hash)
             while True:
-                exp = input("Enter the assignment statement you want to modify:\nFor example, a=(1+2)\n")
+                exp = input("Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n")
                 exp = exp.strip()
                 if not exp:
                     print("Invalid input. Please provide a valid assignment statement.")
                     continue
                 alpha = exp.split('=')[0]
-                opt1_parseInserter.checkForAlpha(exp, alpha)
-                # print(evaluation) # remove this line when you are done with the program
+                try:
+                    opt1_parseInserter.checkForAlpha(exp, alpha)
+                except ValueError:
+                    print("Please input a valid expression.")
+                    break
                 input("\nPress enter to continue...")
                 break  # Exit the loop after valid input is provided
 

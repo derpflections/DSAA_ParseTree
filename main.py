@@ -38,7 +38,6 @@ mainMenu = MainMenu(options=options_list)
 
 # Display welcome screen/banner to user.
 mainMenu.display_welcome_screen()
-input("Press enter key to continue....")
 # Broken by return in .program_navigation.
 while program_running:
     # Prints option menu
