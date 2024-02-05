@@ -134,3 +134,23 @@ class HashTable:
             output_str += f"{value}\n"
 
         return output_str
+
+    def totext(self): 
+        output_str = ""
+        sorted_keys = self.__getkeys__()
+
+        for key in sorted_keys:
+            value = self.__getitem__(key)
+            output_str += f"{value}\n"
+
+        return output_str
+    
+    def fromtext(self, text):
+        lines = text.split("\n")
+        for line in lines:
+            if line != "":
+                self.__setitem__(line.split(" = ")[0], line.split(" = ")[1])
+        return self
+
+    def __repr__(self):
+        return self.__str__()

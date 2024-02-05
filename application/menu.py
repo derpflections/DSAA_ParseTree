@@ -10,13 +10,15 @@ menu.py
 
 # from BinaryTree import BinaryTree
 # from Stack import Stack
+from application.Variable import Variable
 from application.ParseTree import ParseTree
 from application.HashTable import HashTable
-from application.Variable import Variable
+from application.ParseInsert import ParseInserter
+from application.HistoryLogger import HistoryHook
 from application.FileReader import fileManipulator
 from application.AssignmentEvaluator import AssignmentEvaluator
-from application.ParseInsert import ParseInserter
 from application.DependencyIdentifier import DependencyIdentifier
+from application.utility import utilities
 
 class MainMenu:
     def __init__(self, options = None):
@@ -24,8 +26,11 @@ class MainMenu:
         self.border = '*' * self.border_length
         self.options = options
         self.Hash = HashTable(100)
+        self.__historyHook = HistoryHook(self.Hash)
+        self.utilities = utilities()
     
     def display_welcome_screen(self):
+        utilities.cls()
         print("\n\n")
         # generates welcome screen for users upon entry
         print(self.border)
@@ -41,6 +46,7 @@ class MainMenu:
 
     def display_main_menu(self):
         # prints main menu, and handles user input when attempting to access the program's function.
+        self.__historyHook.logger()
         invalid_input = True
         while invalid_input:
             selection = 0   
@@ -71,7 +77,7 @@ class MainMenu:
                 if not exp:
                     print("Invalid input. Please provide a valid assignment statement.")
                     continue
-                alpha = exp.split('=')[0]
+                alpha = exp.split('=')[0].strip()
                 try:
                     opt1_parseInserter.checkForAlpha(exp, alpha)
                 except ValueError:
@@ -122,7 +128,6 @@ class MainMenu:
                 opt4_parseInserter.checkForAlpha(exp, alpha)
             if i > 0:
                 print(f"Warning, {i} invalid assignments were found and skipped.")
-                
             print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
             
             for id in self.Hash.__getkeys__():
@@ -141,6 +146,7 @@ class MainMenu:
     
         elif int(selection) == 6:
             pass
+
         elif int(selection) == 7:
             final_output_str = ""
             opt7_dependency = DependencyIdentifier(self.Hash)
@@ -157,10 +163,22 @@ class MainMenu:
                 final_output_str += f"{internal_str} \n"
             print("\n\nDependencies:\n*************")
             print(f"{final_output_str}")
+
         elif int(selection) == 8:
             pass
         elif int(selection) == 9:
-            pass
+            opt9_criteria = True
+            while opt9_criteria:
+                self.__historyHook.displayer()
+                opt9_select = int(input("Press 1 if you would like to exit.\nPress 2 if you would like to rollback.\n>>> "))                
+                if opt9_select == 1:
+                    return
+                elif opt9_select == 2:
+                    opt9_2 = int(input("Enter the version number you would like to rollback to: "))
+                    self.__historyHook.rollback(opt9_2)
+                else:
+                    print("Invalid input. Please try again.")
+
 
 
 ##7261232
