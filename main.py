@@ -29,6 +29,10 @@ options_list = [
     "Evaluate a single variable",
     "Read assignment statements from file",
     "Sort assignment statements",
+    "Extra Function 1",
+    "Extra Function 2",
+    "Extra Function 3",
+    "Extra Function 4",
     "Exit",
 ]
 

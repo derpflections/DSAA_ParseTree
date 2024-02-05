@@ -137,6 +137,13 @@ class MainMenu:
             opt5_fileManipulator.write_contents(opt5_evaluator.evaluation().split('\n'))
             # print(self.Hash)
     
-
+        elif int(selection) == 6:
+            pass
+        elif int(selection) == 7:
+            pass
+        elif int(selection) == 8:
+            pass
+        elif int(selection) == 9:
+            pass
 
 ##726132
