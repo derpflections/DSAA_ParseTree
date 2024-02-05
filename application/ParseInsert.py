@@ -8,9 +8,8 @@ import re
 class ParseInserter():
     def __init__(self, hashTable):
         self.__Hash = hashTable
-
     def checkForAlpha(self, exp, alpha):
-        if self.checkValidity(alpha):
+        if self.checkValidity(exp, alpha):
             raise ValueError("Invalid variable name")
         if any(key in exp for key in self.__Hash.__getkeys__()):
             replaced_exp = exp
@@ -39,7 +38,8 @@ class ParseInserter():
       
         # print("Updated hash table:", self.__Hash)
 
-    def checkValidity(self, alpha):
+    def checkValidity(self, exp, alpha):
         if not alpha.isalpha():
-            return True
+            if exp.find('=') == -1:
+                return True
         return False
