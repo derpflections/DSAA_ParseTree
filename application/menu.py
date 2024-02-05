@@ -23,7 +23,7 @@ class MainMenu:
         self.border_length = 71
         self.border = '*' * self.border_length
         self.options = options
-        self.Hash = HashTable(26)
+        self.Hash = HashTable(100)
     
     def display_welcome_screen(self):
         print("\n\n")
@@ -116,7 +116,7 @@ class MainMenu:
                     invalidFile, contents = opt4_fileManipulator.read_contents()
             for exp in contents:
                 alpha = exp.split('=')[0].strip()
-                if opt4_parseInserter.checkValidity(alpha):
+                if opt4_parseInserter.checkValidity(exp, alpha):
                     i += 1
                     continue
                 opt4_parseInserter.checkForAlpha(exp, alpha)
@@ -161,5 +161,6 @@ class MainMenu:
             pass
         elif int(selection) == 9:
             pass
+
 
 ##7261232
