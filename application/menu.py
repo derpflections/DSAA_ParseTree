@@ -16,6 +16,8 @@ from application.Variable import Variable
 from application.FileReader import fileManipulator
 from application.AssignmentEvaluator import AssignmentEvaluator
 from application.ParseInsert import ParseInserter
+from application.DependencyIdentifier import DependencyIdentifier
+
 class MainMenu:
     def __init__(self, options = None):
         self.border_length = 71
@@ -140,10 +142,25 @@ class MainMenu:
         elif int(selection) == 6:
             pass
         elif int(selection) == 7:
-            print(self.Hash)
+            final_output_str = ""
+            opt7_dependency = DependencyIdentifier(self.Hash)
+            dependency_list = opt7_dependency.parse_assignments()
+            for var_name in dependency_list:
+                internal_str = ""
+                if len(dependency_list[var_name]) != 0:
+                    internal_str += f"{var_name} depends on:"
+                    for dependency in dependency_list[var_name]:
+                        internal_str += f" {dependency},"
+                    internal_str = internal_str[:-1] + "."
+                else:
+                    internal_str += f"{var_name} has no dependencies."
+                final_output_str += f"{internal_str} \n"
+            print("\n\nDependencies:\n*************")
+            print(f"{final_output_str}")
         elif int(selection) == 8:
             pass
         elif int(selection) == 9:
             pass
 
-##726132
+
+##7261232
