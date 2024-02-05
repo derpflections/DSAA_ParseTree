@@ -168,19 +168,34 @@ class MainMenu:
             pass
         elif int(selection) == 9:
             opt9_criteria = True
-            self.__historyHook.displayer()
-            while opt9_criteria:
-                opt9_select = int(input("Press 1 if you would like to exit.\nPress 2 if you would like to rollback.\n>>> "))                
-                if opt9_select == 1:
-                    return
-                elif opt9_select == 2:
-                    opt9_2 = int(input("Enter the version number you would like to rollback to: "))
-                    self.Hash = self.__historyHook.rollback(opt9_2)
-                    return  
-                elif opt9_select == 3:
-                    self.__historyHook.debugger()
-                    return
+            history, timestamps = self.__historyHook.displayer()
+            utilities.cls()
+            print("Assignment History:")
+            for i in range(len(history)):
+                if i == len(history) - 1:
+                    print(f"Time: {timestamps[i]}, iteration {i} (latest)")
                 else:
+                    print(f"Time: {timestamps[i]}, iteration {i}")
+                print(history[i])
+                print("\n")
+            while opt9_criteria:
+                try:
+                    opt9_select = int(input("Press 1 if you would like to exit.\nPress 2 if you would like to rollback.\n>>> "))                
+                    if opt9_select == 1:
+                        return
+                    elif opt9_select == 2:
+                        opt9_2 = int(input("Enter the version number you would like to rollback to: "))
+                        self.Hash, no_of_rollbacks = self.__historyHook.rollback(opt9_2)
+                        if self.Hash == None:
+                            print("Invalid input. Please try again.\n")
+                            continue
+                        else:
+                            print(f"Rollback successful. Reverted {no_of_rollbacks} versions.")
+                            return
+                        return  
+                    else:
+                        print("Invalid input. Please try again.\n")
+                except ValueError:
                     print("Invalid input. Please try again.\n")
 
 

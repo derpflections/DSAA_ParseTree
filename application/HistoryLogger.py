@@ -18,30 +18,21 @@ class HistoryHook():
 
 
     def displayer(self):
-        utilities.cls() 
-        print("Assignment History:")
-        for i in range(len(self.__history)):
-            if i == len(self.__history) - 1:
-                print(f"Time: {self.__historyTime[i]}, iteration {i} (latest)")
-            else:
-                print(f"Time: {self.__historyTime[i]}, iteration {i}")
-            print(self.__history[i])
-            print("\n")
+        return self.__history, self.__historyTime
     
     def rollback(self, version):
         #this function can rollback the hashtable to any version incidated to the user
         # version is a integer corresponding to the iteration as in displayer
         if version <= len(self.__history):
             self.__Hash = self.__Hash.fromtext(self.__history[version])
-            print(f"Rollback to version {version} successful.")
             no_of_versions = (len(self.__history) - 1) - version
-            print(f"Number of versions rolled back: {no_of_versions}")
-            return self.__Hash
+            for i in range(0, no_of_versions):
+                self.__history.pop()
+                self.__historyTime.pop()
+            print(self.__Hash)
+            return self.__Hash, no_of_versions
         elif version == "":
             return 
         else:
-            print("Invalid version number, returning to main menu...")
-
-    def debugger(self):
-        print(self.__history)
-        print(self.__historyTime)
+            return None, None
+        
