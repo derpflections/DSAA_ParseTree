@@ -30,9 +30,9 @@ options_list = [
     "Read assignment statements from file",
     "Sort assignment statements",
     "Extra Function 1",
-    "Extra Function 2",
+    "Dependency Graph",
     "Extra Function 3",
-    "Extra Function 4",
+    "History of Assignment Statements",
     "Exit",
 ]
 

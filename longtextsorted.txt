@@ -1,0 +1,63 @@
+*** Statements with value => 240
+CherryJam = ((ApplePie + (Lemonade + (GuavaJuice * (Mulberry * (Clementine / RaspberrySorbet)))))/2)
+Grapefruit = (Apple * Kiwi)
+Lemon = (Raspberry * Kiwi)
+Lemonade = (4 * (97.5 + 6.75))
+Raspberry = (4 * (58.25 + 3.75))
+
+*** Statements with value => 135.5
+Banana = (2 * (65.5 + 2.25))
+Mango = ((Apple + (Grapefruit + (Kiwi * (Cherry * (Fig / Guava)))))/2)
+MangoSorbet = (BlueRaspberry * 5)
+
+*** Statements with value => 16
+ApplePie = (PassionFruit * 4)
+BlueRaspberry = (Raspberry / 6)
+Date = (Kiwi + 0)
+Kiwi = (Apple + 1)
+Lime = (Kiwi + Orange)
+Orange = (Kiwi * 1)
+PassionFruit = (Kiwi + 4)
+Peach = (3 ** 4)
+Pineapple = (Apple + 2)
+Starfruit = (3 * 9)
+Strawberry = (Date + 1)
+
+*** Statements with value => 15
+Apple = (3 * 5)
+
+*** Statements with value => 1
+BananaSplit = (Clementine + 4)
+Cherry = (Grape / 2)
+Clementine = (Papaya + 4)
+Cranberry = (Grape / 5)
+Fig = (1 + 0)
+Grape = (3 + 5)
+Grapevine = (Mulberry / 5)
+Guava = (Fig + 1)
+GuavaJuice = (PassionFruit / 7)
+KiwiSmoothie = (Grape + 4)
+Mulberry = (Papaya + 3)
+Papaya = (Fig * 2)
+RaspberrySorbet = (Pineapple / 7)
+Tangerine = (Lime / 3)
+
+*** Statements with value => None
+Apricot = (Cherry + 2)
+Avocado = (Pomegranate * 3)
+Blackberry = (Pineapple * Tangerine)
+Blueberry = (Date + Raspberry)
+BlueberryMuffin = (DragonFruit * 6)
+Cantaloupe = (Lime * 4)
+CherryBlossom = (Tangerine + 4)
+CoconutCream = ((Kiwismoothie + (Clementine + (RaspberrySorbet * (PapayaShake * (CherryJam / OrangeCrush)))))/2)
+CoconutWater = ((Lychee + (Kiwifruit + (Papaya * (GuavaJuice * (Grapevine / Lemonade)))))/2)
+DragonFruit = ((Grape + (Tangerine + (Pomegranate * (Strawberry * (Cranberry / Raspberry)))))/2)
+Kiwifruit = (Lychee * 3)
+Lychee = ((Pomegranate + (Raspberry + (Guava * (Cherry * (Blackberry / Cranberry)))))/2)
+OrangeCrush = (Tangerine + 5)
+PapayaShake = (Lychee * 4)
+PineappleExpress = (Strawberry / 8)
+Pomegranate = (Apple + Strawberry)
+Watermelon = ((Date + (Kiwi + (Raspberry * (Strawberry * (Guava / Blueberry)))))/2)
+
