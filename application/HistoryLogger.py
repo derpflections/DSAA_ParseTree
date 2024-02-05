@@ -1,6 +1,7 @@
 import time as time
 import datetime
 from application.utility import utilities
+from application.HashTable import HashTable
 
 class HistoryHook():
     def __init__(self, hashTable):
@@ -18,7 +19,7 @@ class HistoryHook():
 
     def displayer(self):
         utilities.cls() 
-        print("History of HashTable:")
+        print("Assignment History:")
         for i in range(len(self.__history)):
             if i == len(self.__history) - 1:
                 print(f"Time: {self.__historyTime[i]}, iteration {i} (latest)")
@@ -30,10 +31,17 @@ class HistoryHook():
     def rollback(self, version):
         #this function can rollback the hashtable to any version incidated to the user
         # version is a integer corresponding to the iteration as in displayer
-        if version < len(self.__history):
-            self.__Hash = self.__history[version]
-            print("Rollback successful")
+        if version <= len(self.__history):
+            self.__Hash = self.__Hash.fromtext(self.__history[version])
+            print(f"Rollback to version {version} successful.")
+            no_of_versions = (len(self.__history) - 1) - version
+            print(f"Number of versions rolled back: {no_of_versions}")
+            return self.__Hash
         elif version == "":
             return 
         else:
-            print("Invalid version number")
+            print("Invalid version number, returning to main menu...")
+
+    def debugger(self):
+        print(self.__history)
+        print(self.__historyTime)

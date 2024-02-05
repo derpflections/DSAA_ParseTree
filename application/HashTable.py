@@ -146,11 +146,19 @@ class HashTable:
         return output_str
     
     def fromtext(self, text):
-        lines = text.split("\n")
-        for line in lines:
+        #converts output from .totext to a hashtable
+        newHash = HashTable()
+        text = text.split('\n')
+        for line in text:
             if line != "":
-                self.__setitem__(line.split(" = ")[0], line.split(" = ")[1])
-        return self
+                newHash.__setitem__(line.split('=')[0], line)
+        return newHash
+    
 
-    def __repr__(self):
-        return self.__str__()
+    def copyHash(self, oldHash):
+        self.size = oldHash.size
+        self.load_factor = oldHash.load_factor
+        self.keys = oldHash.keys
+        self.buckets = oldHash.buckets
+        self.num_items = oldHash.num_items
+        return self

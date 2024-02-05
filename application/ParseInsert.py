@@ -99,3 +99,5 @@ class ParseInserter:
         if not alpha.isalpha() or exp.find("=") == -1:
             return True
         return False
+
+    

@@ -168,16 +168,20 @@ class MainMenu:
             pass
         elif int(selection) == 9:
             opt9_criteria = True
+            self.__historyHook.displayer()
             while opt9_criteria:
-                self.__historyHook.displayer()
                 opt9_select = int(input("Press 1 if you would like to exit.\nPress 2 if you would like to rollback.\n>>> "))                
                 if opt9_select == 1:
                     return
                 elif opt9_select == 2:
                     opt9_2 = int(input("Enter the version number you would like to rollback to: "))
-                    self.__historyHook.rollback(opt9_2)
+                    self.Hash = self.__historyHook.rollback(opt9_2)
+                    return  
+                elif opt9_select == 3:
+                    self.__historyHook.debugger()
+                    return
                 else:
-                    print("Invalid input. Please try again.")
+                    print("Invalid input. Please try again.\n")
 
 
 
