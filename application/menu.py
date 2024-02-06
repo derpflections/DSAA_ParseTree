@@ -146,7 +146,70 @@ class MainMenu:
             # print(self.Hash)
     
         elif int(selection) == 6:
-            pass
+            while True:
+                print('\nWelcome to Option 6. This option allows you to save your current hashtable and create a new one.')
+                print('You may load the saved hashtable later on.')
+
+                if self.current_hash_name != 'Original Hash Table':
+                    print(f"Name of current hashtable: {self.current_hash_name}\n")
+
+                print('1. Create new hashtable')
+                print('2. Load saved hashtable')
+                print('3. Modify saved current hashtable')
+                print('4. Compare current hashtable with saved hashtable')
+                print('5. Return to main menu')
+                sub_selection = input("Enter your choice: ")
+
+                if sub_selection == '1':  # Save current hashtable
+                    if self.Hash not in self.hash_tables.values() and self.current_hash_name:
+                        # If the current hashtable is not saved, prompt the user to save it
+                        prompt_save = input("Do you want to save the current hashtable? (y/n): ")
+                        
+                        if prompt_save.lower() == 'y':
+                            saved_hash_name = input("Enter the name to save current hashtable: ")
+                            # Remove the original hash table from the dictionary of saved hashtables
+                            if self.current_hash_name == 'Original Hash Table':
+                                self.hash_tables.pop('Original Hash Table', None)
+
+                            # Add the new hashtable to the dictionary of saved hashtables
+                            self.hash_tables[saved_hash_name] = self.Hash
+                            print(f"Updated '{self.hash_tables}'.")
+                            print(f"Hashtable saved as '{saved_hash_name}'.")
+                        elif prompt_save.lower() == 'n':
+                            pass
+                        else:
+                            print("Invalid input. Returning to main menu.")
+                            break
+
+                    # Proceed to create a new hashtable
+                    new_hash_table = HashTable(100)
+                    self.Hash = new_hash_table
+                    new_hash_name = input("Enter the name for the new hashtable: ")
+                    # Update the name of the current hashtable
+                    self.current_hash_name = new_hash_name  
+                    # Add the new hashtable to the dictionary of saved hashtables
+                    self.hash_tables[new_hash_name] = self.Hash
+                    print("New hashtable created.")
+                    input("\nPress enter to continue...")
+
+                # Load saved hashtable
+                elif sub_selection == '2':  
+                    # If there are no saved hashtables, prompt the user to create one
+                    if len(self.hash_tables) == 0:
+                        print("No saved hashtable found.")
+                        print("Please create and save a hashtable first.")
+                    else:
+                        print("\nSaved hash tables:\n")
+                        for i, name in enumerate(self.hash_tables):
+                            print(f"{i + 1}. {name}")
+                        saved_hash_name = input("\nEnter the name of the hash table to load: ")
+                        if saved_hash_name in self.hash_tables:
+                            self.Hash = self.hash_tables[saved_hash_name]
+                            self.current_hash_name = saved_hash_name
+                        else:
+                            print("Hash Table not found.")
+                elif sub_selection == '5':
+                    break
 
         elif int(selection) == 7:
             final_output_str = ""
