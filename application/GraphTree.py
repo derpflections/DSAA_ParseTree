@@ -1,40 +1,51 @@
 import itertools
 
 class GraphTree():
+    # Constructor method for initializing a new instance of the GraphTree class.
+    # The `*data` parameter allows for an arbitrary number of arguments to be passed, which are stored in a tuple.
     def __init__(self, name, parent, *data):
-        self.name = name
-        self.parent = parent
-        self.data = data
-        self.children = []
-        self.is_root = False
+        self.name = name  # Name of the node.
+        self.parent = parent  # Parent node reference. None indicates a root node.
+        self.data = data  # Additional data passed to the node.
+        self.children = []  # List to store child nodes.
+        self.is_root = False  # Flag to indicate if the node is the root node.
 
+    # Representation method to provide a string representation of the node, mainly for debugging purposes.
     def __repr__(self):
-        return 'Node '+repr(self.name)
+        return 'Node ' + repr(self.name)
 
+    # Method to generate a dictionary representation of the tree with the current node as the root.
+    # The method recursively calls `dic` on child nodes to build a nested dictionary structure.
     def dic(self):
         retval = {self: []}
         for i in self.children:
             retval[self].append(i.dic())
         return retval
 
+    # Method to visually display the tree structure as a string.
+    # It constructs a hierarchical representation using the names of nodes and visual connectors.
     def display(self):
         if not self.children:
             return self.name
 
+        # Generating string representations for each child and calculating their display widths.
         child_strs = [child.display() for child in self.children]
         child_widths = [self.block_width(s) for s in child_strs]
 
+        # Calculating the width required to display the current node based on its name and the combined width of its children.
         display_width = max(len(self.name),
                             sum(child_widths) + len(child_widths) - 1)
 
+        # Calculating midpoints for children to align connectors ('+' and '-') correctly.
         child_midpoints = []
         child_end = 0
         for width in child_widths:
             child_midpoints.append(child_end + (width // 2))
             child_end += width + 1
 
+        # Building the connector string between the current node and its children.
         brace_builder = []
-        for i in range(display_width):  # Updated xrange to range
+        for i in range(display_width):
             if i < child_midpoints[0] or i > child_midpoints[-1]:
                 brace_builder.append(' ')
             elif i in child_midpoints:
@@ -43,41 +54,50 @@ class GraphTree():
                 brace_builder.append('-')
         brace = ''.join(brace_builder)
 
+        # Center-aligning the node's name over the connector line.
         name_str = '{:^{}}'.format(self.name, display_width)
+        # Stacking the child node strings below the current node.
         below = self.stack_str_blocks(child_strs)
 
         return name_str + '\n' + brace + '\n' + below
 
+    # Method to check if the current node has any children.
     def has_children(self):
         return bool(self.children)
 
+    # Method to get the parent of the current node.
     def get_parent(self):
         return self.parent
 
+    # Method to add a child node to the current node.
+    # It creates a new instance of GraphTree as the child and appends it to the children list.
     def add_child(self, name, *data):
         child = GraphTree(name, self, *data)
         self.children.append(child)
         return child
 
+    # Helper method to calculate the display width of a string block, which is essential for alignment in the display.
     def block_width(self, block):
         try:
-            return block.index('\n')
+            return block.index('\n')  # The width is up to the first newline character.
         except ValueError:
-            return len(block)
+            return len(block)  # If no newline, the width is the length of the string.
 
+    # Method to vertically stack string representations of child nodes, ensuring correct alignment.
     def stack_str_blocks(self, blocks):
         builder = []
         block_lens = [self.block_width(bl) for bl in blocks]
         split_blocks = [bl.split('\n') for bl in blocks]
 
-        for line_list in itertools.zip_longest(*split_blocks, fillvalue=None):  # Updated izip_longest to zip_longest
+        # Loop through each line of the split blocks, adding spaces for alignment and padding between blocks.
+        for line_list in itertools.zip_longest(*split_blocks, fillvalue=None):  # Handling variable number of lines.
             for i, line in enumerate(line_list):
                 if line is None:
                     builder.append(' ' * block_lens[i])
                 else:
                     builder.append(line)
                 if i != len(line_list) - 1:
-                    builder.append(' ')  # Padding
+                    builder.append(' ')  # Padding between blocks.
             builder.append('\n')
 
-        return ''.join(builder[:-1])
+        return ''.join(builder[:-1])  # Joining all parts together except for the last newline.

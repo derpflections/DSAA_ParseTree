@@ -36,7 +36,7 @@ class MainMenu:
 
     def display_welcome_screen(self):
         utilities.cls()
-        print("\n\n")
+        print("\n")
         # generates welcome screen for users upon entry
         print(self.border)
         print(
@@ -57,7 +57,7 @@ class MainMenu:
         print("*    - Class: DAAA/2B/07".ljust(self.border_length - 1) + "*")
         print("*".ljust(self.border_length - 1) + "*")
         print(self.border)
-        print("\n\n")
+        print("\n")
 
     def display_main_menu(self):
         # prints main menu, and handles user input when attempting to access the program's function.
@@ -414,7 +414,7 @@ class MainMenu:
             opt7_dependency = DependencyIdentifier(self.Hash)
             dependency_dict = opt7_dependency.parse_assignments()
             dependant_dict = opt7_dependency.find_dependants()
-            keyword = ""  # comment
+            keyword = ""
             while True:
                 try:
                     option = input(
@@ -459,36 +459,31 @@ class MainMenu:
             opt8_dependency = DependencyIdentifier(self.Hash)
             dependency_dict = opt8_dependency.parse_assignments()
             dependant_dict = opt8_dependency.find_dependants()
-
+        
             variable_name = input("Enter the variable for which you want to generate the graph: ")
-
-            # Check if the variable exists in either dependency or dependant data
+        
             if variable_name not in dependency_dict and variable_name not in dependant_dict:
-                print("Variable not found in either dependencies or dependants.")
+                print("Variable not found.")
                 return
-
-            # Initialize the graph with the variable of interest as the root node
+        
+            # Initialize the graph
             graph_root = GraphTree(variable_name, None)
             graph_root.is_root = True
-
-            # Create branches for dependencies and dependants
-            dependencies_root = graph_root.add_child("Dependencies")
-            dependants_root = graph_root.add_child("Dependants")
-
-            # A helper function to recursively add nodes
-            def add_nodes_to_graph(current_node, data_dict):
-                for dep in data_dict.get(current_node.name.split(" - ")[0], []):
-                    child_node = current_node.add_child(dep)
-                    # If dealing with dependencies, check further dependencies to build the graph
-                    if dep in dependency_dict:
-                        add_nodes_to_graph(child_node, data_dict)
-
-            # Populate the graph with dependency nodes
-            add_nodes_to_graph(dependencies_root, dependency_dict)
-
-            # Populate the graph with dependant nodes
-            add_nodes_to_graph(dependants_root, dependant_dict)
-
+        
+            # Create separate nodes for Dependencies and Dependants
+            dependencies_node = graph_root.add_child("Dependencies")
+            dependants_node = graph_root.add_child("Dependants")
+        
+            # Populate the Dependencies node
+            if variable_name in dependency_dict:
+                for dependency in dependency_dict[variable_name]:
+                    dependencies_node.add_child(dependency)
+        
+            # Populate the Dependants node
+            if variable_name in dependant_dict:
+                for dependant in dependant_dict[variable_name]:
+                    dependants_node.add_child(dependant)
+        
             # Display the graph
             print(graph_root.display())
 

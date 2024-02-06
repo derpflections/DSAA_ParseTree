@@ -29,7 +29,7 @@ options_list = [
     "Evaluate a single variable",
     "Read assignment statements from file",
     "Sort assignment statements",
-    "Extra Function 1",
+    "Create/Load/Save/Compare Hashtables",
     "Show Dependencies/Dependants",
     "Visualize Dependencies",
     "History of Assignment Statements",
