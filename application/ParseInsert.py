@@ -86,6 +86,8 @@ class ParseInserter:
     def checkValidity(self, exp, alpha):
         if not alpha.isalpha() or exp.find("=") == -1 or exp.replace(" ", "").replace("=", "").isalnum():
                 return True      
+        elif re.findall(r'[&@#$%^_:\'<>,?{}|!;";~]', exp):
+            return True
         return False
     
     def checkBrackets(self, exp):
