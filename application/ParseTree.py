@@ -17,7 +17,6 @@ class ParseTree:
       self.exp = exp
 
   def buildParseTree(self, exp):
-      
       # get the right hand side of the expression only  
       exp = exp.split("=")[1].strip()
 
