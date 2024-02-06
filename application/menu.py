@@ -150,13 +150,8 @@ class MainMenu:
                 opt4_parseInserter.checkForAlpha(exp, alpha)
             if i > 0:
                 print(f"Warning, {i} invalid assignments were found and skipped.")
-<<<<<<< Updated upstream
-            print("\nCURRENT ASSIGNMENT:\n*******************\n", end="")
-
-=======
-
             print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')  
->>>>>>> Stashed changes
+
             for id in self.Hash.__getkeys__():
                 opt4_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
 
