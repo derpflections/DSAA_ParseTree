@@ -152,7 +152,7 @@ class MainMenu:
             opt7_dependency = DependencyIdentifier(self.Hash)
             dependency_dict = opt7_dependency.parse_assignments()
             dependant_dict = opt7_dependency.find_dependants()
-            keyword = ""
+            keyword = ""#comment
             while True:
                 try:
                     option = input("\nPress 1 to view dependencies.\nPress 2 to view dependants.\nPress 3 to exit.\n>>> ")
