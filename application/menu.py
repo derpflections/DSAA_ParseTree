@@ -30,6 +30,8 @@ class MainMenu:
         self.Hash = HashTable(200)
         self.__historyHook = HistoryHook(self.Hash)
         self.utilities = utilities()
+        self.hash_tables = {}
+        self.current_hash_name = "Original Hash Table"
 
     def display_welcome_screen(self):
         utilities.cls()
@@ -169,6 +171,7 @@ class MainMenu:
                 )
                 print("You may load the saved hashtable later on.")
 
+                # if it is the original hash table (1st run of program), do not show name
                 if self.current_hash_name != "Original Hash Table":
                     print(f"Name of current hashtable: {self.current_hash_name}\n")
 
@@ -181,6 +184,10 @@ class MainMenu:
 
                 # Create new hashtable
                 if sub_selection == "1":
+                    print("\nSaved hash tables:")
+                    for i, name in enumerate(self.hash_tables):
+                        print(f"{i + 1}. {name}")
+
                     if (
                         self.Hash not in self.hash_tables.values()
                         and self.current_hash_name
@@ -247,7 +254,7 @@ class MainMenu:
                         print("No saved hashtable found.")
                         print("Please create and save a hashtable first.")
                     else:
-                        print("\nSaved hash tables:\n")
+                        print("\nSaved hash tables:")
                         for i, name in enumerate(self.hash_tables):
                             print(f"{i + 1}. {name}")
                         saved_hash_name = input(
@@ -316,7 +323,7 @@ class MainMenu:
                         print("Please create and save a hashtable first.")
 
                     else:
-                        print("\nSaved hash tables:\n")
+                        print("\nSaved hash tables:")
                         for i, name in enumerate(self.hash_tables):
                             print(f"{i + 1}. {name}")
                         while True:
