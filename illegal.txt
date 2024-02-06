@@ -4,3 +4,6 @@
 h3llo = hello
 h3llo = 4
 hell0 = 8
+c = (3+4
+d = (3+&
+f = (1+2+3)

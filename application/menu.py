@@ -19,6 +19,7 @@ from application.FileReader import fileManipulator
 from application.AssignmentEvaluator import AssignmentEvaluator
 from application.DependencyIdentifier import DependencyIdentifier
 from application.utility import utilities
+from application.GraphTree import GraphTree
 import itertools
 
 
@@ -129,8 +130,8 @@ class MainMenu:
                 opt4_parseInserter.checkForAlpha(exp, alpha)
             if i > 0:
                 print(f"Warning, {i} invalid assignments were found and skipped.")
-            print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
-            
+
+            print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')  
             for id in self.Hash.__getkeys__():
                 opt4_parseInserter.checkForAlpha(self.Hash[id].getExp(), id)
             
@@ -195,6 +196,40 @@ class MainMenu:
         elif int(selection) == 8:
             opt8_dependency = DependencyIdentifier(self.Hash)
             dependency_dict = opt8_dependency.parse_assignments()
+            dependant_dict = opt8_dependency.find_dependants()
+
+            variable_name = input("Enter the variable for which you want to generate the graph: ")
+
+            # Check if the variable exists in either dependency or dependant data
+            if variable_name not in dependency_dict and variable_name not in dependant_dict:
+                print("Variable not found in either dependencies or dependants.")
+                return
+
+            # Initialize the graph with the variable of interest as the root node
+            graph_root = GraphTree(variable_name, None)
+            graph_root.is_root = True
+
+            # Create branches for dependencies and dependants
+            dependencies_root = graph_root.add_child("Dependencies")
+            dependants_root = graph_root.add_child("Dependants")
+
+            # A helper function to recursively add nodes
+            def add_nodes_to_graph(current_node, data_dict):
+                for dep in data_dict.get(current_node.name.split(" - ")[0], []):
+                    child_node = current_node.add_child(dep)
+                    # If dealing with dependencies, check further dependencies to build the graph
+                    if dep in dependency_dict:
+                        add_nodes_to_graph(child_node, data_dict)
+
+            # Populate the graph with dependency nodes
+            add_nodes_to_graph(dependencies_root, dependency_dict)
+
+            # Populate the graph with dependant nodes
+            add_nodes_to_graph(dependants_root, dependant_dict)
+
+            # Display the graph
+            print(graph_root.display())
+
 
         elif int(selection) == 9:
             opt9_criteria = True

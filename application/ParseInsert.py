@@ -178,11 +178,9 @@ class ParseInserter:
         # print("Updated hash table:", self.__Hash)
 
     def checkValidity(self, exp, alpha):
-
         if not alpha.isalpha():
             if exp.find("=") == -1:
-                return True
-        
+                return True      
         return False
     
     def checkBrackets(self, exp):
