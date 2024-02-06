@@ -17,3 +17,15 @@ class DependencyIdentifier():
             exp = assignment.split('=')[1].strip()
             dependencies[alpha] = re.findall(self.__identifier, exp)
         return dependencies
+    
+    def find_dependants(self):
+        """Find and return dependants for each identifier."""
+        dependencies = self.parse_assignments()
+        dependants = {}
+        for key in self.__keys:
+            dependants[key] = []
+        for key in self.__keys:
+            for alpha in dependencies[key]:
+                if alpha in self.__keys:
+                    dependants[alpha].append(key)
+        return dependants

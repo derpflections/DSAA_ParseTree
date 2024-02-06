@@ -19,6 +19,8 @@ from application.FileReader import fileManipulator
 from application.AssignmentEvaluator import AssignmentEvaluator
 from application.DependencyIdentifier import DependencyIdentifier
 from application.utility import utilities
+import itertools
+
 
 class MainMenu:
     def __init__(self, options = None):
@@ -149,22 +151,51 @@ class MainMenu:
         elif int(selection) == 7:
             final_output_str = ""
             opt7_dependency = DependencyIdentifier(self.Hash)
-            dependency_list = opt7_dependency.parse_assignments()
-            for var_name in dependency_list:
-                internal_str = ""
-                if len(dependency_list[var_name]) != 0:
-                    internal_str += f"{var_name} depends on:"
-                    for dependency in dependency_list[var_name]:
-                        internal_str += f" {dependency},"
-                    internal_str = internal_str[:-1] + "."
-                else:
-                    internal_str += f"{var_name} has no dependencies."
-                final_output_str += f"{internal_str} \n"
-            print("\n\nDependencies:\n*************")
+            dependency_dict = opt7_dependency.parse_assignments()
+            dependant_dict = opt7_dependency.find_dependants()
+            keyword = ""#comment
+            while True:
+                try:
+                    option = input("\nPress 1 to view dependencies.\nPress 2 to view dependants.\nPress 3 to exit.\n>>> ")
+                    if int(option) == 1:
+                        keyword = "Dependencies"
+                        for var_name in dependency_dict:
+                            internal_str = ""
+                            if len(dependency_dict[var_name]) != 0:
+                                internal_str += f"{var_name} depends on:"
+                                for dependency in dependency_dict[var_name]:
+                                    internal_str += f" {dependency},"
+                                internal_str = internal_str[:-1] + "."
+                            else:
+                                internal_str += f"{var_name} has no dependencies."
+                            final_output_str += f"{internal_str} \n"
+                    elif int(option) == 2:
+                        keyword = "Dependants"
+                        for var_name in dependant_dict:
+                            internal_str = ""
+                            if len(dependant_dict[var_name]) != 0:
+                                internal_str += f"{var_name} is depended on by:"
+                                for dependant in dependant_dict[var_name]:
+                                    internal_str += f" {dependant},"
+                                internal_str = internal_str[:-1] + "."
+                            else:
+                                internal_str += f"{var_name} has no dependants."
+                            final_output_str += f"{internal_str} \n" 
+                    elif int(option) == 3:
+                        return
+                    else:
+                        print("Invalid input. Please try again.\n")
+                        return
+                    break
+                except ValueError:
+                    print("Invalid input. Please try again.\n")
+            print(f"\n{keyword}:\n*************")
             print(f"{final_output_str}")
 
         elif int(selection) == 8:
-            pass
+            opt8_dependency = DependencyIdentifier(self.Hash)
+            dependency_dict = opt8_dependency.parse_assignments()
+
         elif int(selection) == 9:
             opt9_criteria = True
             history, timestamps = self.__historyHook.displayer()
