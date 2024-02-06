@@ -83,6 +83,7 @@ class MainMenu:
                 except ValueError:
                     print("Please input a valid expression.")
                     break
+                
                 input("\nPress enter to continue...")
                 break  # Exit the loop after valid input is provided
 
