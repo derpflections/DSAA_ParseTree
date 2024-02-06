@@ -25,7 +25,7 @@ class MainMenu:
         self.border_length = 71
         self.border = '*' * self.border_length
         self.options = options
-        self.Hash = HashTable(100)
+        self.Hash = HashTable(200)
         self.__historyHook = HistoryHook(self.Hash)
         self.utilities = utilities()
     

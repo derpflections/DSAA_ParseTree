@@ -120,9 +120,11 @@ class ParseInserter:
     def checkForAlpha(self, exp, alpha, depth=10):
         if depth == 0:
             return  # Stopping criteria: depth limit reached
-        
+ 
         if self.checkValidity(exp, alpha):
             raise ValueError("Invalid expression")
+        
+        self.checkBrackets(exp)
 
         temp_rhs = exp.split('=')[1].replace('(', '').replace(')', '')
         temp_lhs = exp.split('=')[0].strip()
@@ -176,15 +178,19 @@ class ParseInserter:
         # print("Updated hash table:", self.__Hash)
 
     def checkValidity(self, exp, alpha):
+
+        if not alpha.isalpha():
+            if exp.find("=") == -1:
+                return True
+        
+        return False
+    
+    def checkBrackets(self, exp):
         exp = exp.split("=")[1]
         if exp.count("(") != exp.count(")"):
             raise ValueError("Invalid expression")
         elif exp == '()':
             raise ValueError("Invalid expression")
-        if not alpha.isalpha():
-            if exp.find("=") == -1:
-                return True
-        return False
     
         
         
