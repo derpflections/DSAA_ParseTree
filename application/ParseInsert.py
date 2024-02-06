@@ -82,7 +82,6 @@ class ParseInserter:
             for key in self.__Hash.__getkeys__():
                 if key != alpha and alpha in self.__Hash[key].getExp():
                     self.checkForAlpha(self.__Hash[key].getExp(), key)
-
         else:
             if any(c.isalpha() for c in exp.split("=")[1]):
                 evaluation = None
@@ -96,7 +95,6 @@ class ParseInserter:
         # print("Updated hash table:", self.__Hash)
 
     def checkValidity(self, exp, alpha):
-        if not alpha.isalpha():
-            if exp.find("=") == -1:
-                return True
+        if not alpha.isalpha() or exp.find("=") == -1:
+            return True
         return False
