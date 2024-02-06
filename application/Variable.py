@@ -18,5 +18,5 @@ class Variable:
         return self.__eval
 
     def __str__(self):
-        output = f"{self.__exp}=> {self.__eval}"
+        output = f"{self.__exp} => {self.__eval}"
         return output

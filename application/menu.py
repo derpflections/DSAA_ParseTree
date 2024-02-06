@@ -93,9 +93,7 @@ class MainMenu:
         elif int(selection) == 1:
             opt1_parseInserter = ParseInserter(self.Hash)
             while True:
-                exp = input(
-                    "Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n"
-                )
+                exp = input("Enter the assignment statement you want to add/modify:\nFor example, a=(1+2)\n")
                 exp = exp.strip()
                 if not exp:
                     print("Invalid input. Please provide a valid assignment statement.")
@@ -106,7 +104,6 @@ class MainMenu:
                 except ValueError:
                     print("Please input a valid expression.")
                     break
-
                 input("\nPress enter to continue...")
                 break  # Exit the loop after valid input is provided
 
@@ -144,7 +141,7 @@ class MainMenu:
                 invalidFile, contents = opt4_fileManipulator.read_contents()
             for exp in contents:
                 alpha = exp.split("=")[0].strip()
-                if opt4_parseInserter.checkValidity(exp, alpha):
+                if opt4_parseInserter.checkValidity(exp, alpha) or opt4_parseInserter.checkBrackets(exp):
                     i += 1
                     continue
                 opt4_parseInserter.checkForAlpha(exp, alpha)
@@ -449,6 +446,9 @@ class MainMenu:
                     print("Invalid input. Please try again.\n")
             print(f"\n{keyword}:\n*************")
             print(f"{final_output_str}")
+
+            input("\nPress enter to continue and return to the main menu...")
+
 
         elif int(selection) == 8:
             opt8_dependency = DependencyIdentifier(self.Hash)

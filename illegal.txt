@@ -1,6 +1,10 @@
-*** = 3
-023 = 4
-!@#DF = 3
-h3llo = hello
-h3llo = 4
-hell0 = 8
+*** = (3+3)
+023 = (4+3)
+!@#DF = (3+2)
+h3llo = (4)
+hell0 = (8)
+llo = (3+4
+apple = ()
+banana = (2)
+cann = 3
+dill = (#+4)

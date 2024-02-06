@@ -81,7 +81,6 @@ class HashTable:
         for key in sorted_keys:
             value = self.__getitem__(key)
             output_str += f"{value}\n"
-
         return output_str
 
     def totext(self): 
