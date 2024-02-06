@@ -46,7 +46,7 @@ class MainMenu:
 
     def display_main_menu(self):
         # prints main menu, and handles user input when attempting to access the program's function.
-        self.__historyHook.logger()
+        self.__historyHook.logger(self.Hash)
         invalid_input = True
         while invalid_input:
             selection = 0   
@@ -88,7 +88,6 @@ class MainMenu:
 
 
         elif int(selection) == 2:
-            opt2_parseInserter = ParseInserter(self.Hash)
             print("\nCURRENT ASSIGNMENT:\n*******************\n", end='')
             print(self.Hash)
             input("\nPress enter to continue...")
@@ -112,7 +111,6 @@ class MainMenu:
 
 
         elif int(selection) == 4:
-            # opt4_parseInserter = ParseInserter(self.Hash)
             invalidFile = True
             i = 0
             opt4_parseInserter = ParseInserter(self.Hash)
@@ -192,7 +190,6 @@ class MainMenu:
                         else:
                             print(f"Rollback successful. Reverted {no_of_rollbacks} versions.")
                             return
-                        return  
                     else:
                         print("Invalid input. Please try again.\n")
                 except ValueError:
