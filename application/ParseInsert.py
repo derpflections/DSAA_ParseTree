@@ -124,8 +124,10 @@ class ParseInserter:
         if self.checkValidity(exp, alpha):
             raise ValueError("Invalid expression")
         
+        # Check if the expression is a valid expression
         self.checkBrackets(exp)
 
+        # Split the expression into the left hand side and right hand side
         temp_rhs = exp.split('=')[1].replace('(', '').replace(')', '')
         temp_lhs = exp.split('=')[0].strip()
         
@@ -135,7 +137,7 @@ class ParseInserter:
             # Add 00 so that it doesnt clash with anything that actually has +0
             exp = temp_lhs + '=' + '(' + temp_rhs + '+00' + ')' 
 
-
+        # if expression has a variable in it, replace the variable with its value
         if any(key in exp for key in self.__Hash.__getkeys__()):
             replaced_exp = exp
             for key in self.__Hash.__getkeys__():
@@ -146,10 +148,12 @@ class ParseInserter:
                         str(self.__Hash.__getitem__(key).getEval()),
                         replaced_exp,
                     )
-
+                    # print("Replaced exp:", replaced_exp)
+            # if the replaced expression still has a variable in it after replacing, set evaluation to None
             if any(c.isalpha() for c in replaced_exp.split("=")[1]):
                 evaluation = None
                 self.__Hash[alpha] = Variable(exp, evaluation)
+            # otherwise, evaluate the expression
             else:
                 parser = ParseTree(replaced_exp)
                 tree = parser.buildParseTree(replaced_exp)
@@ -158,15 +162,13 @@ class ParseInserter:
                 exp = exp.replace("+00", "")
                 self.__Hash[alpha] = Variable(exp, evaluation)
 
-            # Check if any other variable depends on the current one
-            for key in self.__Hash.__getkeys__():
-                if key != alpha and alpha in self.__Hash[key].getExp():
-                    self.checkForAlpha(self.__Hash[key].getExp(), key, depth - 1)
-
+        # if the expression has no variables or have new variables run this
         else:
+            # if variable is new, set evaluation to None
             if any(c.isalpha() for c in exp.split("=")[1]):
                 evaluation = None
                 self.__Hash[alpha] = Variable(exp, evaluation)
+            # otherwise, evaluate the expression
             else:
                 parser = ParseTree(exp)
                 tree = parser.buildParseTree(exp)
@@ -174,6 +176,11 @@ class ParseInserter:
                 # remove +0 from the expression
                 exp = exp.replace("+00", "")
                 self.__Hash[alpha] = Variable(exp, evaluation)
+
+        # Check if any other variable depends on the current one
+        for key in self.__Hash.__getkeys__():
+            if key != alpha and alpha in self.__Hash[key].getExp():
+                self.checkForAlpha(self.__Hash[key].getExp(), key, depth - 1)
 
         # print("Updated hash table:", self.__Hash)
 
