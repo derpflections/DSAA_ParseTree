@@ -1,6 +1,31 @@
+# Name: Teo Wei Qi & Lee Hong Yi
+# Student ID: p2201902 & p2223010
+# Class: DAAA/FT/2B/07
+
 import itertools
 
 class GraphTree():
+    """
+        A class to represent a node in a tree structure for graphical visualization.
+
+        Attributes:
+            name (str): The name of the node.
+            parent (GraphTree): The parent node of the current node. None indicates that the node is the root.
+            data (tuple): Additional data associated with the node.
+            children (list): A list of GraphTree instances representing the children of the node.
+            is_root (bool): A flag indicating if the node is the root node of the tree.
+
+        Methods:
+            __init__(self, name, parent, *data): Initializes a new GraphTree instance.
+            __repr__(self): Returns a string representation of the GraphTree instance, primarily for debugging.
+            dic(self): Generates a nested dictionary representation of the tree.
+            display(self): Returns a string representing the hierarchical structure of the tree.
+            has_children(self): Checks if the node has any children.
+            get_parent(self): Returns the parent of the current node.
+            add_child(self, name, *data): Adds a new child to the current node.
+            block_width(block): Calculates the display width of a string block.
+            stack_str_blocks(blocks): Vertically stacks string representations of child nodes.
+    """
     # Constructor method for initializing a new instance of the GraphTree class.
     # The `*data` parameter allows for an arbitrary number of arguments to be passed, which are stored in a tuple.
     def __init__(self, name, parent, *data):

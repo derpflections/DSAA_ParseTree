@@ -4,107 +4,136 @@
 
 '''
 ParseTree.py
+This module defines the ParseTree class for building and evaluating expressions from a string format. 
+The ParseTree class utilizes a binary tree structure to organize and compute the values of mathematical 
+expressions. It supports basic arithmetic operations (+, -, *, /) and exponentiation.
+
+The ParseTree class is capable of parsing expressions with variables, handling parentheses for operation 
+precedence, and performing arithmetic evaluations.
+
+Classes:
+    ParseTree: Represents a parse tree for arithmetic expressions.
+
+Dependencies:
+    - re: Used for tokenizing the string expression.
+    - BinaryTree: A class representing the structure and operations of a binary tree.
+    - Stack: A class used for maintaining the current position within the tree during parsing.
 '''
 
 import re
 from application.BinaryTree import BinaryTree
 from application.Stack import Stack
-# from BinaryTree import BinaryTree
-# from Stack import Stack
 
 class ParseTree:
-  def __init__(self, exp):
-      self.exp = exp
+    def __init__(self, exp):
+        """
+        Initialize the ParseTree object with an arithmetic expression.
 
-  def buildParseTree(self, exp):
-      # get the right hand side of the expression only  
-      exp = exp.split("=")[1].strip()
+        Parameters:
+        - exp (str): The arithmetic expression to be parsed and evaluated.
+        """
+        self.exp = exp  # Store the expression for later parsing.
 
-      # since ** is not supported in python, we replace it with ^ first
-      exp = exp.replace("**", "^")
-      tokens = re.findall(r"\(|\)|\d+\.?\d*|\+|\-|\*|\/|\^|[A-Za-z]+", exp)
+    def buildParseTree(self, exp):
+        """
+        Constructs a binary parse tree from the given arithmetic expression.
 
+        Parameters:
+        - exp (str): The arithmetic expression to be converted into a parse tree.
 
-      stack = Stack()
-      tree = BinaryTree("?")
-      stack.push(tree)
-      currentTree = tree
-      for t in tokens:
-          # RULE 0: If token is a variable, set key of current node
-          if t.isalpha():
-            currentTree.setKey(t)
-            parent = stack.pop()
-            currentTree = parent
-            continue
+        Returns:
+        - BinaryTree: The root node of the constructed binary parse tree.
+        """
+        # Split the expression at '=', focusing on the right-hand side (RHS) for parsing.
+        exp = exp.split("=")[1].strip()
 
-          # RULE 1: If token is '(' add a new node as left child
-          # and descend into that node
-          if t == "(":
-              currentTree.insertLeft("?")
-              stack.push(currentTree)
-              currentTree = currentTree.getLeftTree()
+        # Replace '**' with '^' to handle exponentiation, since '**' is not directly tokenizable.
+        exp = exp.replace("**", "^")
 
-          # RULE 2: If token is operator set key of current node
-          # to that operator and add a new node as right child
-          # and descend into that node
-          elif t in ["+", "-", "*", "/", "^"]:
-              if t == "^":
-                  # replace ^ with **
-                  t = "**"
-              currentTree.setKey(t)
-              currentTree.insertRight("?")
-              stack.push(currentTree)
-              currentTree = currentTree.getRightTree()
-          # RULE 3: If token is number, set key of the current node
-          # to that number and return to parent
-          elif t not in ["+", "-", "*", "/", ")"]:
-              if "." in t:
-                  currentTree.setKey(float(t))
-              else:
-                  currentTree.setKey(int(t))
-              parent = stack.pop()
-              currentTree = parent
+        # Tokenize the expression into operands, operators, and parentheses.
+        tokens = re.findall(r"\(|\)|\d+\.?\d*|\+|\-|\*|\/|\^|[A-Za-z]+", exp)
 
-          # RULE 4: If token is ')' go to parent of current node
-          elif t == ")":
-              currentTree = stack.pop()
-          else:
-              raise ValueError
-      return tree
+        # Initialize a stack to manage the tree nodes during construction.
+        stack = Stack()
+        # Create the root of the binary tree with a placeholder value.
+        tree = BinaryTree("?")
+        stack.push(tree)
+        currentTree = tree  # Set the current working node to the root.
 
+        for t in tokens:
+            # RULE 0: If the token is a variable, set the current node's key and return to the parent node.
+            if t.isalpha():
+                currentTree.setKey(t)
+                parent = stack.pop()
+                currentTree = parent
+                continue
 
-  def evaluate(self, tree):
-      leftTree = tree.getLeftTree()
-      rightTree = tree.getRightTree()
-      op = tree.getKey()
+            # RULE 1: If the token is '(', add a new node as the left child and move down to it.
+            if t == "(":
+                currentTree.insertLeft("?")
+                stack.push(currentTree)
+                currentTree = currentTree.getLeftTree()
 
-      if leftTree != None and rightTree != None:
-          
-          if op == "+":
-              return self.evaluate(leftTree) + self.evaluate(rightTree)
-          elif op == "-":
-              return self.evaluate(leftTree) - self.evaluate(rightTree)
-          elif op == "*":
-              return self.evaluate(leftTree) * self.evaluate(rightTree)
-          elif op == "/":
-              # check for division by zero
-              if self.evaluate(rightTree) != 0:
-                  return self.evaluate(leftTree) / self.evaluate(rightTree)
-              else:
-                  raise ValueError("Division by zero is undefined")
-          elif op == "**":
-              return self.evaluate(leftTree) ** self.evaluate(rightTree)
-              
-      else:
-          return tree.getKey()
-      
+            # RULE 2: If the token is an operator, set the current node's key to the operator,
+            # add a new node as the right child, and move down to it.
+            elif t in ["+", "-", "*", "/", "^"]:
+                if t == "^":  # Adjust exponentiation back to Python's '**'.
+                    t = "**"
+                currentTree.setKey(t)
+                currentTree.insertRight("?")
+                stack.push(currentTree)
+                currentTree = currentTree.getRightTree()
 
-# # main program
-# if __name__ == "__main__":
-#     exp = 'Pear=(Apple*3)'
-#     parser = ParseTree(exp)
-#     tree = parser.buildParseTree(exp)
-#     tree.printInorder(0)
-#     evaluation = parser.evaluate(tree)
-#     print(evaluation) # remove this line when you are done with the program
-#     input("Press enter to continue...")
+            # RULE 3: If the token is a number, set the current node's key to the number and return to the parent node.
+            elif t not in ["+", "-", "*", "/", ")"]:
+                currentTree.setKey(float(t) if "." in t else int(t))
+                parent = stack.pop()
+                currentTree = parent
+
+            # RULE 4: If the token is ')', ascend to the parent node.
+            elif t == ")":
+                currentTree = stack.pop()
+
+            # Handle any unrecognized tokens as errors.
+            else:
+                raise ValueError
+
+        return tree  # Return the root of the completed parse tree.
+
+    def evaluate(self, tree):
+        """
+        Evaluates the arithmetic expression represented by the binary parse tree.
+
+        Parameters:
+        - tree (BinaryTree): The root node of the binary parse tree.
+
+        Returns:
+        - The evaluated result of the arithmetic expression.
+
+        Raises:
+        - ValueError: If division by zero is attempted.
+        """
+        # Recursively evaluate the expression by traversing the tree.
+        leftTree = tree.getLeftTree()
+        rightTree = tree.getRightTree()
+        op = tree.getKey()
+
+        # If both child nodes are present, perform the operation indicated by the current node's key.
+        if leftTree and rightTree:
+            if op == "+":
+                return self.evaluate(leftTree) + self.evaluate(rightTree)
+            elif op == "-":
+                return self.evaluate(leftTree) - self.evaluate(rightTree)
+            elif op == "*":
+                return self.evaluate(leftTree) * self.evaluate(rightTree)
+            elif op == "/":
+                rightEval = self.evaluate(rightTree)
+                if rightEval == 0:
+                    raise ValueError("Division by zero is undefined")
+                return self.evaluate(leftTree) / rightEval
+            elif op == "**":
+                return self.evaluate(leftTree) ** self.evaluate(rightTree)
+
+        # If the node is a leaf (no children), return its key (value or variable).
+        else:
+            return tree.getKey()

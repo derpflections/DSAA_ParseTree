@@ -4,7 +4,19 @@
 
 '''
 ParseInsert.py
+This module defines the ParseInserter class, which is responsible for inserting and evaluating
+arithmetic expressions into a hash table. The class supports expressions involving basic arithmetic
+operations and variables. It ensures that expressions are valid and evaluates them, taking into
+account dependencies between variables.
 
+Classes:
+    ParseInserter: Manages the insertion and evaluation of expressions in a hash table.
+
+Dependencies:
+    ParseTree: Used to build and evaluate expression trees from arithmetic expressions.
+    HashTable: A hash table implementation for storing and retrieving variables and their values.
+    Variable: Represents a variable with an expression and an evaluated result.
+    re: Provides regex support for parsing and manipulating expressions.
 
 '''
 from application.ParseTree import ParseTree
