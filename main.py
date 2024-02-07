@@ -5,7 +5,7 @@
 """
 main.py
 
-This is the main script for the Caesar Cipher Encrypted Message Analyzer application. It orchestrates
+This is the main script for the Parse Tree Evaluator application. It orchestrates
 the user interaction through a command line interface, utilizing the MainMenu class for navigation and
 providing various options for encryption, decryption, and analysis.
 
