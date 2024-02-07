@@ -3,7 +3,7 @@
 # Class: DAAA/FT/2B/07
 
 
-class AssignmentEvaluator():
+class AssignmentEvaluator(): # done by Hong Yi
     """
     A class for evaluating assignments within a hash table based on certain bounds.
 

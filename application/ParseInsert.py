@@ -24,7 +24,7 @@ from application.HashTable import HashTable
 from application.Variable import Variable
 import re
 
-class ParseInserter:
+class ParseInserter: #done by Wei Qi
     def __init__(self, hashTable):
         self.__Hash = hashTable
 

@@ -4,7 +4,7 @@
 
 import os
 
-class fileManipulator():
+class fileManipulator(): # done by Hong Yi
     """
     A utility class for manipulating files, including reading and writing contents.
 

@@ -7,7 +7,7 @@ This module defines the Variable class which is used to represent a variable wit
 Each variable has an associated expression and an evaluated result. 
 '''
 
-class Variable:
+class Variable: #done by Wei Qi
     # Initializer or constructor method for the Variable class
     def __init__(self, exp, eval):
         """

@@ -4,6 +4,6 @@
 
 import os
 
-class utilities():
+class utilities(): # done by Hong Yi
     def cls():
         os.system('cls' if os.name=='nt' else 'clear')

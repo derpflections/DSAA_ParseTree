@@ -4,7 +4,7 @@
 
 import itertools
 
-class GraphTree():
+class GraphTree(): #done by Wei Qi
     """
         A class to represent a node in a tree structure for graphical visualization.
 

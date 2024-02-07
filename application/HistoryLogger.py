@@ -8,7 +8,7 @@ from application.utility import utilities
 from application.HashTable import HashTable
 from application.ParseInsert import ParseInserter
 
-class HistoryHook():
+class HistoryHook(): # done by Hong Yi
     """
     A class that manages the history of a hash table, allowing logging, displaying, rolling back, and checking for redundancy.
 

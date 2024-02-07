@@ -4,7 +4,7 @@
 
 from application.Variable import Variable
 
-class HashTable:
+class HashTable: #done by Wei Qi
     """
     A hash table implementation with dynamic resizing.
 

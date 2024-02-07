@@ -6,7 +6,7 @@
 Stack.py
 '''
 
-class Stack:
+class Stack: #done by Wei Qi
     def __init__(self):
         self.__list = []
 

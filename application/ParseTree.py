@@ -23,8 +23,8 @@ Dependencies:
 import re
 from application.BinaryTree import BinaryTree
 from application.Stack import Stack
-
-class ParseTree:
+ 
+class ParseTree: #done by Wei Qi
     def __init__(self, exp):
         """
         Initialize the ParseTree object with an arithmetic expression.
