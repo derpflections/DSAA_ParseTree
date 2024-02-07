@@ -42,17 +42,17 @@ class AssignmentEvaluator():
             eval_list.append(eval)
         
         for bound in (b for b in self.__bounds if b is not None):
-            output_str += f"*** Statements with value => {bound}\n\n"
+            output_str += f"*** Statements with value => {bound}\n"
             for i in range(0, len(exp_list)):
                 if isinstance(eval_list[i], (int, float)) and bound <= eval_list[i] < last_bound:
-                    output_str += f"{exp_list[i]}\n\n"
+                    output_str += f"{exp_list[i]}\n"
             last_bound = bound
             output_str += "\n"
         
-        output_str += "*** Statements with value => None\n\n"
+        output_str += "*** Statements with value => None\n"
         for i in range(0, len(exp_list)):
             if not isinstance(eval_list[i], (int, float)):
-                output_str += f"{exp_list[i]}\n\n"
+                output_str += f"{exp_list[i]}\n"
         
         return output_str
 
